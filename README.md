@@ -1,4 +1,4 @@
-# Sunrun Academy Analytics (mockup)
+# Academy Intelligence (mockup)
 
 Interactive design mockup of the Academy performance dashboard. **All numbers are sample data.**
 

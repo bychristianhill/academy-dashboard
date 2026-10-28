@@ -1,0 +1,1516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunrun Academy Analytics (Mockup)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Interactive mockup of the Sunrun Academy performance dashboard. Sample data only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#07080b}
+a{color:#f5a524}a:hover{color:#ffd27a}
+.app{font-family:Inter,system-ui,sans-serif;color:#eceef2;background:#07080b;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+.disp{font-family:'Barlow Condensed',Inter,sans-serif;letter-spacing:.01em}
+.ttl{text-transform:uppercase;letter-spacing:.05em}
+.glow{filter:drop-shadow(0 0 6px rgba(245,165,36,.55))}
+.card{background:#0e1014;border:1px solid #1d212a;box-shadow:inset 0 1px 0 rgba(255,255,255,.035);border-radius:16px;padding:20px;min-width:0;box-sizing:border-box}
+.lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9aa1ad;font-weight:600}
+.muted{color:#9aa1ad}
+.faint{color:#858c99}
+.nav{display:flex;align-items:center;gap:12px;width:100%;min-height:44px;padding:0 12px;border-radius:10px;border:0;background:transparent;color:#b7bdc8;font:500 14px Inter,sans-serif;cursor:pointer;text-align:left}
+.nav:hover{background:#171a21;color:#eceef2}
+.nav.on{background:#14171d;color:#fff;box-shadow:inset 0 0 0 1px #262b35}
+.nav .num{font:600 13px 'Barlow Condensed',sans-serif;color:#858c99;width:18px}
+.nav.on .num{color:#f5a524}
+.seg{display:inline-flex;background:#0e1014;border:1px solid #1d212a;border-radius:12px;padding:3px;gap:2px}
+.seg button{min-height:40px;padding:0 16px;border:0;border-radius:9px;background:transparent;color:#aeb4bf;font:600 13px Inter,sans-serif;cursor:pointer}
+.seg button:hover{color:#eceef2}
+.seg button.on{background:#f5a524;color:#16120a}
+.pill{min-height:40px;padding:0 14px;border:1px solid #2a303b;border-radius:999px;background:transparent;color:#c3c8d1;font:500 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.pill:hover{border-color:#4a515e;color:#fff}
+.pill.on{background:#eceef2;border-color:#eceef2;color:#07080b;font-weight:600}
+.ghost{min-height:40px;padding:0 14px;border:1px solid #2a303b;background:transparent;color:#c3c8d1;border-radius:10px;font:600 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.ghost:hover{border-color:#4a515e;color:#fff}
+button:focus-visible{outline:2px solid #f5a524;outline-offset:2px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.up{color:#6fd47b;background:rgba(76,195,90,.13)}
+.down{color:#ff9090;background:rgba(240,112,112,.13)}
+.flat{color:#aeb4bf;background:#1c2029}
+.st{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;white-space:nowrap}
+.st i{width:8px;height:8px;display:inline-block;border-radius:50%}
+.st.good{color:#6fd47b}.st.good i{background:#4cc35a}
+.st.warn{color:#fbc54d}.st.warn i{background:#fab219;border-radius:1px;transform:rotate(45deg)}
+.st.crit{color:#ff9090}.st.crit i{background:#f07070;border-radius:1px}
+.st.info{color:#aeb4bf}.st.info i{background:transparent;border:2px solid #858c99;box-sizing:border-box;width:10px;height:10px}
+.trow{display:grid;grid-template-columns:minmax(150px,1.5fr) repeat(9,minmax(78px,1fr)) minmax(96px,1fr);align-items:center;min-width:1100px}
+.trow > div{padding:12px 10px;text-align:right;white-space:nowrap;font-size:14px;border-bottom:1px solid #1c2029}
+.trow > div:first-child{text-align:left}
+.trow.head > div{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9aa1ad;font-weight:600;border-bottom:1px solid #2a303b}
+.trow.sel > div{background:#1a1e26}
+.rowbtn{background:none;border:0;color:#eceef2;font:600 14px Inter,sans-serif;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:6px;min-height:32px}
+.rowbtn:hover{color:#f5a524}
+.track{position:relative;height:10px;background:#1f232c;border-radius:999px}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.hcell{min-height:52px;border:0;border-radius:8px;font:600 13px Inter,sans-serif;cursor:pointer;width:100%}
+.hcell:hover{outline:2px solid #eceef2;outline-offset:-2px}
+.req{color:#f7c96a;background:rgba(245,184,61,.12)}
+.crow{display:grid;grid-template-columns:minmax(210px,2.4fr) minmax(104px,1.1fr) repeat(3,minmax(70px,.8fr)) minmax(112px,1.1fr) minmax(52px,.6fr) minmax(120px,1fr);align-items:center;min-width:820px}
+.crow > div{padding:12px 10px;text-align:right;white-space:nowrap;font-size:14px;border-bottom:1px solid #1c2029}
+.crow > div:nth-child(-n+2){text-align:left}
+.crow.head > div{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9aa1ad;font-weight:600;border-bottom:1px solid #2a303b}
+.crow.sel > div{background:#1a1e26}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-template">
+<div class="app" style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch">
+
+  <aside style="flex: 1 1 220px; box-sizing: border-box; padding: 28px 16px; background: #0a0b0e; border-right: 1px solid #1a1e26; display: flex; flex-direction: column; gap: 28px">
+    <div style="display: flex; align-items: center; gap: 12px; padding: 0 8px">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="7" fill="#f5a524"></circle><g stroke="#f5a524" stroke-width="2.2" stroke-linecap="round"><path d="M17 2v4"></path><path d="M17 28v4"></path><path d="M2 17h4"></path><path d="M28 17h4"></path><path d="M6.4 6.4l2.8 2.8"></path><path d="M24.8 24.8l2.8 2.8"></path><path d="M6.4 27.6l2.8-2.8"></path><path d="M24.8 9.2l2.8-2.8"></path></g></svg>
+      <div>
+        <div class="disp ttl" style="font-size: 20px; font-weight: 700; line-height: 1">Sunrun Academy</div>
+        <div class="faint" style="font-size: 12px; margin-top: 2px">Performance analytics</div>
+      </div>
+    </div>
+    <nav aria-label="Dashboard pages" style="display: flex; flex-direction: column; gap: 4px">
+      <sc-for list="{{navs}}" as="n" hint-placeholder-count="4">
+        <button type="button" class="{{n.cls}}" onClick="{{n.go}}" aria-current="{{n.current}}">
+          <span class="num">{{n.num}}</span>
+          <span style="flex: 1">{{n.label}}</span>
+          <sc-if value="{{n.hasBadge}}" hint-placeholder-val="{{false}}">
+            <span style="font-size: 11px; font-weight: 700; color: #16120a; background: #f5a524; border-radius: 999px; padding: 2px 7px">{{n.badge}}</span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 14px; border: 1px solid #1f232c; border-radius: 12px; display: flex; flex-direction: column; gap: 6px">
+      <div class="lbl">Data as of</div>
+      <div style="font-size: 14px; font-weight: 600">Oct 28, 2026</div>
+      <div class="faint" style="font-size: 12px; line-height: 1.45">Sample data for design review. Sources: CRM (SRA, CAP, Install), RunXLearning, Academy LMS.</div>
+    </div>
+  </aside>
+
+  <main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 28px clamp(16px, 3vw, 40px) 56px; display: flex; flex-direction: column; gap: 20px">
+
+    <header style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+      <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0">{{pageTitle}}</h1>
+      <span class="faint" style="font-size: 13px">{{periodLabel}}</span>
+      <div class="seg" role="group" aria-label="Comparison period">
+        <sc-for list="{{modes}}" as="m" hint-placeholder-count="3">
+          <button type="button" class="{{m.cls}}" onClick="{{m.go}}" aria-pressed="{{m.on}}">{{m.label}}</button>
+        </sc-for>
+      </div>
+    </header>
+
+    <section class="card" aria-label="Scope" style="display: flex; flex-direction: column; gap: 12px; padding: 16px 20px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <span class="lbl" style="width: 64px">Channel</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <sc-for list="{{chanPills}}" as="c" hint-placeholder-count="6">
+            <button type="button" class="{{c.cls}}" onClick="{{c.go}}" aria-pressed="{{c.on}}">{{c.name}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <span class="lbl" style="width: 64px">Region</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px">
+          <sc-for list="{{regPills}}" as="c" hint-placeholder-count="6">
+            <button type="button" class="{{c.cls}}" onClick="{{c.go}}" aria-pressed="{{c.on}}">{{c.name}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{showOffices}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+          <span class="lbl" style="width: 64px">Office</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px">
+            <sc-for list="{{offPills}}" as="c" hint-placeholder-count="3">
+              <button type="button" class="{{c.cls}}" onClick="{{c.go}}" aria-pressed="{{c.on}}">{{c.name}}</button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{isScoped}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 4px">
+          <span class="faint" style="font-size: 13px">Viewing {{scopeName}}</span>
+          <button type="button" class="ghost" onClick="{{reset}}">Reset to all channels</button>
+        </div>
+      </sc-if>
+    </section>
+
+    <!-- ===================== 01 OVERVIEW ===================== -->
+    <sc-if value="{{isOverview}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+          <sc-for list="{{kpis}}" as="k" hint-placeholder-count="4">
+            <div class="card" style="display: flex; flex-direction: column; gap: 10px">
+              <div class="lbl">{{k.label}}</div>
+              <div style="display: flex; align-items: baseline; gap: 8px">
+                <span class="disp" style="font-size: 52px; font-weight: 600; line-height: 1">{{k.value}}</span>
+                <span class="faint" style="font-size: 13px">per rep / mo</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                <span class="{{k.d.cls}}">{{k.d.text}}</span>
+                <span class="faint" style="font-size: 12px">{{k.cmp}}</span>
+              </div>
+              <svg viewBox="0 0 200 40" preserveAspectRatio="none" style="width: 100%; height: 40px; overflow: visible" aria-hidden="true"><path class="glow" d="{{k.spark}}" fill="none" stroke="#f5a524" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+              <div class="faint" style="font-size: 12px">{{k.total}}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="card" style="display: flex; flex-wrap: wrap; gap: 0">
+          <sc-for list="{{rev}}" as="r" hint-placeholder-count="4">
+            <div style="flex: 1 1 200px; padding: 4px 20px 4px 0; display: flex; flex-direction: column; gap: 6px">
+              <div class="lbl">{{r.label}}</div>
+              <div class="disp" style="font-size: 36px; font-weight: 600">{{r.value}}</div>
+              <div style="display: flex; gap: 8px; align-items: center"><span class="{{r.d.cls}}">{{r.d.text}}</span><span class="faint" style="font-size: 12px">{{r.note}}</span></div>
+            </div>
+          </sc-for>
+          <div class="faint" style="flex-basis: 100%; font-size: 12px; margin-top: 14px">Revenue estimated at {{revRate}} per install. Reps are paid on installs, so installs per rep is the headline metric.</div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+          <div class="card" style="flex: 2 1 520px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-start">
+              <div>
+                <div class="disp ttl" style="font-size: 21px; font-weight: 700">Installs per rep, monthly</div>
+                <div class="faint" style="font-size: 13px; margin-top: 2px">Last 24 months · shaded = current period</div>
+              </div>
+              <div style="display: flex; gap: 16px; font-size: 12px; color: #c3c8d1; flex-wrap: wrap">
+                <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 18px; height: 3px; background: #f5a524; border-radius: 2px"></span>{{scopeShort}}</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 18px; height: 0; border-top: 2px dashed #8a909c"></span>Company average</span>
+              </div>
+            </div>
+            <div style="position: relative; height: 240px; margin-left: 36px">
+              <sc-for list="{{trend.yt}}" as="t" hint-placeholder-count="4">
+                <div style="position: absolute; left: 0; right: 0; top: {{t.top}}; border-top: 1px solid #1f242d"></div>
+                <div style="position: absolute; left: -36px; top: {{t.top}}; transform: translateY(-50%); font-size: 11px; color: #858c99">{{t.label}}</div>
+              </sc-for>
+              <div style="position: absolute; top: 0; bottom: 0; left: {{trend.winLeft}}; width: {{trend.winW}}; background: rgba(245,184,61,.07); border-left: 1px dashed rgba(245,184,61,.4)"></div>
+              <svg viewBox="0 0 1000 240" preserveAspectRatio="none" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible" aria-hidden="true">
+                <path d="{{trend.co}}" fill="none" stroke="#8a909c" stroke-width="2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"></path>
+                <defs><linearGradient id="trendArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5a524" stop-opacity="0.28"></stop><stop offset="1" stop-color="#f5a524" stop-opacity="0"></stop></linearGradient></defs>
+                <path d="{{trend.scArea}}" fill="url(#trendArea)"></path>
+                <path class="glow" d="{{trend.sc}}" fill="none" stroke="#f5a524" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+              </svg>
+              <div style="position: absolute; top: 0; bottom: 0; left: {{trend.hx}}; border-left: 1px solid #3a404c"></div>
+              <div style="position: absolute; left: {{trend.hx}}; top: {{trend.hy}}; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #f5a524; box-shadow: 0 0 0 2px #0e1014, 0 0 12px rgba(245,165,36,.8)"></div>
+              <div style="position: absolute; top: 6px; left: {{trend.hx}}; transform: {{trend.tipTx}}; background: #07080b; border: 1px solid #2a303b; border-radius: 10px; padding: 10px 12px; font-size: 12px; pointer-events: none; white-space: nowrap; z-index: 2; display: flex; flex-direction: column; gap: 4px">
+                <div style="font-weight: 600">{{trend.tipMonth}}</div>
+                <div style="display: flex; justify-content: space-between; gap: 16px"><span class="muted">{{scopeShort}}</span><span style="font-weight: 600">{{trend.tipS}}</span></div>
+                <div style="display: flex; justify-content: space-between; gap: 16px"><span class="muted">Company</span><span>{{trend.tipC}}</span></div>
+              </div>
+              <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; z-index: 3" onMouseLeave="{{trend.leave}}">
+                <sc-for list="{{trend.hits}}" as="h" hint-placeholder-count="24">
+                  <div style="flex: 1; height: 100%" onMouseEnter="{{h.enter}}"></div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; margin-left: 36px">
+              <sc-for list="{{trend.xl}}" as="x" hint-placeholder-count="24">
+                <div style="flex: 1; text-align: center; font-size: 11px; color: #858c99; white-space: nowrap">{{x.t}}</div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div class="card" style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Conversion funnel</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Current period · change {{cmpShort}}</div>
+            </div>
+            <sc-for list="{{funnel.stages}}" as="s" hint-placeholder-count="3">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <sc-if value="{{s.hasConv}}" hint-placeholder-val="{{false}}">
+                  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; padding: 2px 0 2px 2px">
+                    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1v7h8M8 5l3 3-3 3" fill="none" stroke="#858c99" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                    <span class="muted">{{s.convLabel}}</span>
+                    <strong>{{s.conv}}</strong>
+                    <span class="{{s.d.cls}}">{{s.d.text}}</span>
+                    <span class="faint" style="font-size: 12px">{{s.co}}</span>
+                  </div>
+                </sc-if>
+                <div style="display: flex; justify-content: space-between; font-size: 14px"><span style="font-weight: 600">{{s.name}}</span><span>{{s.count}}</span></div>
+                <div style="height: 26px; background: #1a1e26; border-radius: 6px; overflow: hidden"><div class="glow" style="height: 100%; width: {{s.w}}; background: #f5a524; border-radius: 0 4px 4px 0"></div></div>
+              </div>
+            </sc-for>
+            <div style="margin-top: auto; background: rgba(240,112,112,.08); border: 1px solid rgba(240,112,112,.3); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px">
+              <span class="st crit"><i></i>Biggest drop-off: {{funnel.worst}}</span>
+              <span style="font-size: 13px; line-height: 1.45; color: #d4d8df">{{funnel.worstNote}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: flex-end">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">{{bd.title}}</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">{{bd.sub}}</div>
+            </div>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap">
+              <span class="st good"><i></i>On track</span><span class="st warn"><i></i>Watch</span><span class="st crit"><i></i>At risk</span>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <div class="trow head">
+              <div>{{bd.dimLabel}}</div><div>Reps</div><div>SRAs / rep</div><div>CAPs / rep</div><div>Installs / rep</div><div>Recruits / rep</div><div>SRA → CAP</div><div>CAP → Inst</div><div>Req. training</div><div>Δ Inst / rep</div><div>Status</div>
+            </div>
+            <sc-for list="{{bd.rows}}" as="r" hint-placeholder-count="5">
+              <div class="{{r.cls}}">
+                <div><button type="button" class="rowbtn" onClick="{{r.go}}">{{r.name}}<span aria-hidden="true" style="color: #858c99">›</span></button></div>
+                <div>{{r.reps}}</div><div>{{r.sra}}</div><div>{{r.cap}}</div><div style="font-weight: 600">{{r.ins}}</div><div>{{r.rec}}</div><div>{{r.c1}}</div><div>{{r.c2}}</div><div>{{r.tr}}</div>
+                <div><span class="{{r.d.cls}}">{{r.d.text}}</span></div>
+                <div><span class="{{r.stCls}}"><i></i>{{r.stLabel}}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===================== 02 FUNNEL & RETENTION ===================== -->
+    <sc-if value="{{isFunnel}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+          <sc-for list="{{convs}}" as="v" hint-placeholder-count="3">
+            <div class="card" style="display: flex; flex-direction: column; gap: 10px">
+              <div class="lbl">{{v.label}}</div>
+              <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap">
+                <span class="disp" style="font-size: 46px; font-weight: 600; line-height: 1">{{v.value}}</span>
+                <span class="{{v.d.cls}}">{{v.d.text}}</span>
+              </div>
+              <div class="faint" style="font-size: 12px">Company {{v.co}} · {{v.gap}}</div>
+              <svg viewBox="0 0 300 80" preserveAspectRatio="none" style="width: 100%; height: 80px; overflow: visible" aria-hidden="true">
+                <path d="{{v.coPath}}" fill="none" stroke="#8a909c" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"></path>
+                <path class="glow" d="{{v.scPath}}" fill="none" stroke="#f5a524" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+              </svg>
+              <div style="display: flex; justify-content: space-between; font-size: 11px" class="faint"><span>Nov '24</span><span>Oct '26</span></div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <div class="card" style="flex: 3 1 480px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px">
+              <div>
+                <div class="disp ttl" style="font-size: 21px; font-weight: 700">Recruit retention</div>
+                <div class="faint" style="font-size: 13px; margin-top: 2px">Share of new reps still active after each milestone</div>
+              </div>
+              <div style="display: flex; gap: 16px; font-size: 12px; color: #c3c8d1; flex-wrap: wrap">
+                <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 14px; height: 10px; background: #f5a524; border-radius: 3px"></span>{{scopeShort}}</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 2px; height: 14px; background: #eceef2"></span>Company</span>
+              </div>
+            </div>
+            <sc-for list="{{ret}}" as="t" hint-placeholder-count="6">
+              <div style="display: grid; grid-template-columns: 56px minmax(0, 1fr) 64px 88px; align-items: center; gap: 12px">
+                <span class="muted" style="font-size: 13px">{{t.label}}</span>
+                <div class="track" style="height: 14px"><div class="fill" style="width: {{t.w}}; background: #f5a524"></div><div style="position: absolute; top: -4px; bottom: -4px; left: {{t.mk}}; width: 2px; background: #eceef2; border-radius: 1px"></div></div>
+                <span style="font-size: 14px; font-weight: 600; text-align: right">{{t.val}}</span>
+                <span class="{{t.d.cls}}" style="justify-self: end">{{t.d.text}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div class="card" style="flex: 2 1 320px; display: flex; flex-direction: column; gap: 14px">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">New rep speed</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Median days from start date · lower is better</div>
+            </div>
+            <sc-for list="{{speed}}" as="s" hint-placeholder-count="4">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1c2029">
+                <div><div style="font-size: 14px; font-weight: 500">{{s.label}}</div><div class="faint" style="font-size: 12px; margin-top: 2px">{{s.co}}</div></div>
+                <div style="display: flex; align-items: center; gap: 10px"><span class="disp" style="font-size: 30px; font-weight: 600">{{s.value}}</span><span class="{{s.d.cls}}">{{s.d.text}}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div>
+          <div class="lbl" style="margin-bottom: 10px">Rookie outcomes · are new reps getting paid and building teams?</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+            <sc-for list="{{rookie}}" as="k" hint-placeholder-count="4">
+              <div class="card" style="display: flex; flex-direction: column; gap: 8px">
+                <div class="lbl">{{k.label}}</div>
+                <div class="disp" style="font-size: 38px; font-weight: 600">{{k.value}}</div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="{{k.d.cls}}">{{k.d.text}}</span><span class="faint" style="font-size: 12px">{{k.co}}</span></div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===================== 03 TRAINING ===================== -->
+    <sc-if value="{{isTraining}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <div class="card" style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 14px">
+            <div class="lbl">Training effectiveness score</div>
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+              <div style="position: relative; width: 132px; height: 132px; flex: none">
+                <svg width="132" height="132" viewBox="0 0 132 132" role="img" aria-label="{{eff.aria}}">
+                  <circle cx="66" cy="66" r="56" fill="none" stroke="#1f232c" stroke-width="10"></circle>
+                  <circle class="glow" cx="66" cy="66" r="56" fill="none" stroke="#f5a524" stroke-width="10" stroke-linecap="round" stroke-dasharray="{{eff.dash}}" transform="rotate(-90 66 66)"></circle>
+                </svg>
+                <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+                  <span class="disp" style="font-size: 48px; font-weight: 700; line-height: 1">{{eff.score}}</span>
+                  <span class="faint" style="font-size: 12px">of 100</span>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <span class="{{eff.stCls}}"><i></i>{{eff.band}}</span>
+                <span class="faint" style="font-size: 12px; line-height: 1.45; max-width: 180px">Blends completion, progression and measured lift on sales outcomes.</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px">
+              <sc-for list="{{eff.parts}}" as="p" hint-placeholder-count="3">
+                <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 13px">
+                  <span class="muted">{{p.label}} <span class="faint">· {{p.wt}}</span></span>
+                  <span style="font-weight: 600">{{p.v}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div class="card" style="flex: 2 1 460px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px">
+              <div>
+                <div class="disp ttl" style="font-size: 21px; font-weight: 700">Required training · are reps compliant?</div>
+                <div class="faint" style="font-size: 13px; margin-top: 2px">{{trShare}} of reps have completed every required module</div>
+              </div>
+              <span class="faint" style="font-size: 12px; display: inline-flex; align-items: center; gap: 6px"><span style="width: 2px; height: 14px; background: #eceef2"></span>Target {{tgt}}%</span>
+            </div>
+            <sc-for list="{{req}}" as="q" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: minmax(150px, 200px) minmax(0, 1fr) 56px 110px; align-items: center; gap: 12px">
+                <span style="font-size: 14px; font-weight: 500">{{q.label}}</span>
+                <div class="track" style="height: 12px"><div class="fill" style="width: {{q.w}}; background: {{q.color}}"></div><div style="position: absolute; top: -4px; bottom: -4px; left: {{tgtPos}}; width: 2px; background: #eceef2"></div></div>
+                <span style="font-size: 14px; font-weight: 600; text-align: right">{{q.val}}</span>
+                <span class="{{q.stCls}}" style="justify-self: end"><i></i>{{q.stLabel}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <section class="card" aria-label="Content performance" style="display: flex; flex-direction: column; gap: 16px">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-end">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Content performance</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">From full courses down to individual videos · {{scopeShort}} · select a course or module to open it</div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+              <div class="seg" role="group" aria-label="Content level">
+                <sc-for list="{{ct.levels}}" as="m" hint-placeholder-count="3">
+                  <button type="button" class="{{m.cls}}" onClick="{{m.go}}" aria-pressed="{{m.on}}">{{m.label}}</button>
+                </sc-for>
+              </div>
+              <div class="seg" role="group" aria-label="Sort content">
+                <sc-for list="{{ct.sorts}}" as="m" hint-placeholder-count="3">
+                  <button type="button" class="{{m.cls}}" onClick="{{m.go}}" aria-pressed="{{m.on}}">{{m.label}}</button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          <nav aria-label="Content path" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; min-height: 32px">
+            <sc-for list="{{ct.crumbs}}" as="b" hint-placeholder-count="1">
+              <sc-if value="{{b.sep}}" hint-placeholder-val="{{false}}"><span class="faint" aria-hidden="true">›</span></sc-if>
+              <sc-if value="{{b.link}}" hint-placeholder-val="{{false}}"><button type="button" class="rowbtn" style="font-weight: 500; font-size: 13px; color: #9aa1ad" onClick="{{b.go}}">{{b.name}}</button></sc-if>
+              <sc-if value="{{b.here}}" hint-placeholder-val="{{true}}"><span style="font-weight: 600" aria-current="location">{{b.name}}</span></sc-if>
+            </sc-for>
+          </nav>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+            <div style="flex: 3 1 680px; min-width: 0; overflow-x: auto">
+              <div class="crow head">
+                <div>{{ct.levelName}}</div><div>Linked to</div><div>Completed</div><div>Avg. watched</div><div>Rewatched</div><div>Lift</div><div>Score</div><div>Status</div>
+              </div>
+              <sc-for list="{{ct.rows}}" as="r" hint-placeholder-count="6">
+                <div class="{{r.cls}}">
+                  <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start; white-space: normal">
+                    <button type="button" class="rowbtn" style="text-align: left" onClick="{{r.go}}">{{r.name}}<sc-if value="{{r.drill}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="color: #858c99">›</span></sc-if></button>
+                    <span style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><span class="{{r.typeCls}}">{{r.type}}</span><span class="faint" style="font-size: 12px">{{r.sub}}</span></span>
+                  </div>
+                  <div class="muted" style="font-size: 13px; white-space: normal">{{r.stage}}</div>
+                  <div style="font-weight: 600">{{r.comp}}</div><div>{{r.prog}}</div><div>{{r.rerun}}</div><div>{{r.lift}}</div><div style="font-weight: 600">{{r.score}}</div>
+                  <div><span class="{{r.stCls}}"><i></i>{{r.stLabel}}</span></div>
+                </div>
+              </sc-for>
+            </div>
+            <aside aria-label="Selected content detail" style="flex: 1 1 280px; min-width: 0; box-sizing: border-box; background: #0f1217; border: 1px solid #1d212a; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+              <div>
+                <div class="lbl">{{ct.d.kind}}</div>
+                <div class="disp" style="font-size: 24px; font-weight: 700; margin-top: 4px; line-height: 1.25">{{ct.d.name}}</div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; align-items: center"><span class="{{ct.d.typeCls}}">{{ct.d.type}}</span><span class="faint" style="font-size: 12px">{{ct.d.contents}}</span></div>
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap">
+                <span class="disp" style="font-size: 52px; font-weight: 600; line-height: 1">{{ct.d.score}}</span>
+                <span class="faint">/ 100</span>
+                <span class="{{ct.d.stCls}}" style="margin-left: 6px"><i></i>{{ct.d.stLabel}}</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <sc-for list="{{ct.d.funnel}}" as="q" hint-placeholder-count="4">
+                  <div style="display: grid; grid-template-columns: 96px minmax(0, 1fr) 44px; gap: 10px; align-items: center; font-size: 13px">
+                    <span class="muted">{{q.label}}</span>
+                    <div class="track"><div class="fill" style="width: {{q.w}}; background: #f5a524"></div></div>
+                    <span style="text-align: right; font-weight: 600">{{q.val}}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ct.d.isVideo}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <div class="lbl">Audience retention</div>
+                  <svg viewBox="0 0 300 80" preserveAspectRatio="none" style="width: 100%; height: 80px; overflow: visible" role="img" aria-label="{{ct.d.curveAria}}">
+                    <path d="{{ct.d.curveArea}}" fill="rgba(245,165,36,.15)"></path>
+                    <path class="glow" d="{{ct.d.curve}}" fill="none" stroke="#f5a524" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+                  </svg>
+                  <div class="faint" style="display: flex; justify-content: space-between; gap: 8px; font-size: 11px"><span>Start</span><span>{{ct.d.dropNote}}</span><span>End</span></div>
+                </div>
+              </sc-if>
+              <div style="font-size: 13px; line-height: 1.5; color: #d4d8df"><span class="lbl" style="display: block; margin-bottom: 4px">Impact</span>{{ct.d.liftNote}}</div>
+              <div style="font-size: 13px; line-height: 1.5; color: #d4d8df; background: #1a1e26; border-radius: 10px; padding: 12px 14px"><span class="lbl" style="display: block; margin-bottom: 4px; color: #f5a524">Diagnosis</span>{{ct.d.insight}}</div>
+            </aside>
+          </div>
+        </section>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <div class="card" style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 14px">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Optional training engagement</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Playbooks, recorded trainings and refreshers</div>
+            </div>
+            <sc-for list="{{opt}}" as="o" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px"><span><span style="font-weight: 500">{{o.label}}</span> <span class="faint" style="font-size: 12px">· {{o.desc}}</span></span><span style="font-weight: 600">{{o.val}}</span></div>
+                <div class="track"><div class="fill" style="width: {{o.w}}; background: #f5a524"></div></div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div class="card" style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 14px">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Does training move revenue?</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Reps who completed required training vs. those who haven’t</div>
+            </div>
+            <div style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 0; font-size: 14px">
+              <div class="lbl" style="padding: 8px 0; border-bottom: 1px solid #2a303b">Metric</div>
+              <div class="lbl" style="padding: 8px 0; border-bottom: 1px solid #2a303b; text-align: right">Trained</div>
+              <div class="lbl" style="padding: 8px 0; border-bottom: 1px solid #2a303b; text-align: right">Not yet</div>
+              <div class="lbl" style="padding: 8px 0; border-bottom: 1px solid #2a303b; text-align: right">Lift</div>
+            </div>
+            <sc-for list="{{tvu}}" as="t" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); align-items: center; font-size: 14px; border-bottom: 1px solid #1c2029; padding: 10px 0">
+                <span>{{t.label}}</span>
+                <span style="text-align: right; font-weight: 600">{{t.t}}</span>
+                <span class="muted" style="text-align: right">{{t.u}}</span>
+                <span style="text-align: right"><span class="chip up">{{t.lift}}</span></span>
+              </div>
+            </sc-for>
+            <div style="font-size: 13px; line-height: 1.5; color: #d4d8df; background: #1a1e26; border-radius: 10px; padding: 12px 14px">{{tvuNote}}</div>
+          </div>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; gap: 14px">
+          <div>
+            <div class="disp ttl" style="font-size: 21px; font-weight: 700">Required training by {{bd.dimLower}}</div>
+            <div class="faint" style="font-size: 13px; margin-top: 2px">Lowest first. Get these teams compliant before diagnosing skill gaps.</div>
+          </div>
+          <sc-for list="{{compl}}" as="q" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) 56px 120px; align-items: center; gap: 12px">
+              <button type="button" class="rowbtn" onClick="{{q.go}}">{{q.name}}<span aria-hidden="true" style="color: #858c99">›</span></button>
+              <div class="track" style="height: 12px"><div class="fill" style="width: {{q.w}}; background: {{q.color}}"></div><div style="position: absolute; top: -4px; bottom: -4px; left: {{tgtPos}}; width: 2px; background: #eceef2"></div></div>
+              <span style="font-size: 14px; font-weight: 600; text-align: right">{{q.val}}</span>
+              <span class="{{q.stCls}}" style="justify-self: end"><i></i>{{q.stLabel}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===================== 04 AREAS TO IMPROVE ===================== -->
+    <sc-if value="{{isImprove}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+          <sc-for list="{{imp.tiles}}" as="k" hint-placeholder-count="4">
+            <div class="card" style="display: flex; flex-direction: column; gap: 8px">
+              <div class="lbl">{{k.label}}</div>
+              <div class="disp" style="font-size: 42px; font-weight: 600">{{k.value}}</div>
+              <div class="faint" style="font-size: 12px">{{k.note}}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-end">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Where installs per rep are moving</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Change in installs per rep {{cmpShort}} · select a cell to open it</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 11px" class="faint">
+              <span>−10%</span>
+              <span style="width: 140px; height: 10px; border-radius: 999px; background: linear-gradient(90deg, #e66767, #2a2d33, #3987e5)"></span>
+              <span>+10%</span>
+            </div>
+          </div>
+          <div style="overflow-x: auto">
+            <div style="min-width: 620px; display: flex; flex-direction: column; gap: 6px">
+              <div style="display: grid; grid-template-columns: minmax(120px, 1.2fr) repeat(5, minmax(80px, 1fr)); gap: 6px">
+                <span></span>
+                <sc-for list="{{imp.cols}}" as="h" hint-placeholder-count="5">
+                  <span class="lbl" style="text-align: center">{{h.name}}</span>
+                </sc-for>
+              </div>
+              <sc-for list="{{imp.heat}}" as="row" hint-placeholder-count="5">
+                <div style="display: grid; grid-template-columns: minmax(120px, 1.2fr) repeat(5, minmax(80px, 1fr)); gap: 6px; align-items: center">
+                  <span style="font-size: 14px; font-weight: 500">{{row.name}}</span>
+                  <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="5">
+                    <button type="button" class="hcell" style="background: {{c.bg}}; color: {{c.fg}}; box-shadow: {{c.ring}}" onClick="{{c.go}}" aria-label="{{c.aria}}">{{c.text}}</button>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: flex-end">
+            <div>
+              <div class="disp ttl" style="font-size: 21px; font-weight: 700">Red flags, ranked by revenue at stake</div>
+              <div class="faint" style="font-size: 13px; margin-top: 2px">Office × channel, last quarter vs. prior quarter and vs. channel benchmark. {{imp.more}}</div>
+            </div>
+          </div>
+          <sc-for list="{{imp.flags}}" as="f" hint-placeholder-count="4">
+            <article class="card" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+              <div style="flex: 2 1 320px; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                  <span class="faint disp" style="font-size: 13px; font-weight: 600">#{{f.rank}}</span>
+                  <h3 class="disp" style="margin: 0; font-size: 18px; font-weight: 600">{{f.title}}</h3>
+                  <span class="faint" style="font-size: 13px">{{f.meta}}</span>
+                  <span class="{{f.stCls}}"><i></i>{{f.stLabel}}</span>
+                </div>
+                <div style="font-size: 15px; font-weight: 500">{{f.issue}}</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+                  <span class="{{f.diagCls}}">{{f.diag}}</span>
+                  <span class="faint" style="font-size: 12px">{{f.trainNote}}</span>
+                </div>
+                <div style="font-size: 13px; line-height: 1.5; color: #c3c8d1"><span class="lbl" style="margin-right: 6px">Leader talking point</span>{{f.pitch}}</div>
+              </div>
+              <div style="flex: 1 1 240px; display: flex; flex-direction: column; gap: 10px; padding-left: 20px; border-left: 1px solid #1d212a; min-width: 0">
+                <div class="lbl">Recommended action</div>
+                <div style="font-size: 14px; line-height: 1.45">{{f.action}}</div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-top: auto; flex-wrap: wrap">
+                  <span class="disp" style="font-size: 30px; font-weight: 600; color: #f5a524">{{f.upMoney}}</span>
+                  <span class="faint" style="font-size: 12px">{{f.upInst}}</span>
+                </div>
+                <button type="button" class="ghost" onClick="{{f.go}}" style="align-self: flex-start">Open office</button>
+              </div>
+              <div style="flex: 1 1 100%; border-top: 1px solid #1d212a; padding-top: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0">
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px">
+                  <span class="lbl" style="color: #f5a524">{{f.rxTitle}}</span>
+                  <sc-if value="{{f.notAssigned}}" hint-placeholder-val="{{true}}">
+                    <button type="button" onClick="{{f.assign}}" style="min-height: 40px; padding: 0 16px; border: 0; border-radius: 10px; background: #f5a524; color: #16120a; font: 700 13px Inter, sans-serif; cursor: pointer">{{f.assignLabel}}</button>
+                  </sc-if>
+                  <sc-if value="{{f.isAssigned}}" hint-placeholder-val="{{false}}">
+                    <span style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+                      <span class="st good" role="status"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7" fill="none" stroke="#6fd47b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>{{f.assignedLabel}}</span>
+                      <button type="button" class="ghost" onClick="{{f.track}}">Track progress</button>
+                    </span>
+                  </sc-if>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px">
+                  <sc-for list="{{f.rx}}" as="x" hint-placeholder-count="3">
+                    <div style="background: #0a0b0e; border: 1px solid #1d212a; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                      <span style="display: flex; gap: 6px; align-items: center"><span class="{{x.typeCls}}">{{x.type}}</span><span class="faint" style="font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{x.path}}</span></span>
+                      <button type="button" class="rowbtn" style="text-align: left; font-size: 15px" onClick="{{x.go}}">{{x.name}}<span aria-hidden="true" style="color: #858c99">›</span></button>
+                      <span style="font-size: 13px; color: #d4d8df">{{x.lift}}</span>
+                      <span class="faint" style="font-size: 12px">{{x.comp}} · {{x.need}}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===================== 05 ASSIGNMENTS ===================== -->
+    <sc-if value="{{isFollow}}" hint-placeholder-val="{{false}}">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+          <sc-for list="{{fu.tiles}}" as="k" hint-placeholder-count="4">
+            <div class="card" style="display: flex; flex-direction: column; gap: 8px">
+              <div class="lbl">{{k.label}}</div>
+              <div class="disp" style="font-size: 42px; font-weight: 600">{{k.value}}</div>
+              <div class="faint" style="font-size: 12px">{{k.note}}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div class="card" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+          <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+            <div class="disp ttl" style="font-size: 21px; font-weight: 700">Is assigned training working?</div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #c3c8d1">{{fu.evidenceNote}}</p>
+          </div>
+          <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+            <span class="lbl">Avg. share of gap closed, assignments past day 30</span>
+            <sc-for list="{{fu.evidence}}" as="e" hint-placeholder-count="2">
+              <div style="display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr) 48px; gap: 12px; align-items: center; font-size: 13px">
+                <span class="muted">{{e.label}}</span>
+                <div class="track" style="height: 12px"><div class="fill glow" style="width: {{e.w}}; background: #f5a524"></div></div>
+                <span style="text-align: right; font-weight: 600">{{e.val}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{fu.empty}}" hint-placeholder-val="{{false}}">
+          <div class="card" style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
+            <span class="muted" style="font-size: 14px">No assignments in this scope yet. Assign prescribed content from a red flag to start tracking it here.</span>
+            <button type="button" class="ghost" onClick="{{fu.goImprove}}">Go to Areas to Improve</button>
+          </div>
+        </sc-if>
+
+        <sc-for list="{{fu.rows}}" as="a" hint-placeholder-count="3">
+          <article class="card" style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+            <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                <h3 class="disp ttl" style="margin: 0; font-size: 22px; font-weight: 700">{{a.title}}</h3>
+                <span class="faint" style="font-size: 13px">{{a.meta}}</span>
+              </div>
+              <span class="{{a.stCls}}"><i></i>{{a.stLabel}}</span>
+              <div style="font-size: 14px"><span style="font-weight: 600">{{a.metric}}</span> <span class="faint" style="font-size: 12px">· {{a.targetText}}</span></div>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px">
+                <sc-for list="{{a.items}}" as="it" hint-placeholder-count="3">
+                  <span style="font-size: 12px; color: #d4d8df; background: #14171d; border: 1px solid #262b35; border-radius: 999px; padding: 4px 10px">{{it.name}}</span>
+                </sc-for>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-top: auto">
+                <div class="track"><div class="fill" style="width: {{a.compW}}; background: #eceef2"></div></div>
+                <span class="faint" style="font-size: 12px">{{a.compText}}</span>
+                <span class="faint" style="font-size: 12px">{{a.when}}</span>
+              </div>
+            </div>
+
+            <div style="flex: 2 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap">
+                <span class="lbl">{{a.metric}} · weekly</span>
+                <span style="display: flex; align-items: baseline; gap: 8px"><span class="disp" style="font-size: 28px; font-weight: 700">{{a.nowText}}</span><span class="{{a.nowD.cls}}">{{a.nowD.text}}</span></span>
+              </div>
+              <div style="position: relative; height: 140px">
+                <div style="position: absolute; left: 0; right: 0; top: {{a.tgtTop}}; border-top: 1px dashed #eceef2; opacity: 0.7"></div>
+                <span style="position: absolute; right: 0; top: {{a.tgtTop}}; transform: translateY(-120%); font-size: 11px; color: #d4d8df">Target</span>
+                <div style="position: absolute; left: 0; right: 0; top: {{a.baseTop}}; border-top: 1px dashed #5a616e"></div>
+                <span style="position: absolute; left: 0; top: {{a.baseTop}}; transform: translateY(4px); font-size: 11px" class="faint">Baseline</span>
+                <div style="position: absolute; top: 0; bottom: 0; left: 48%; right: 0; background: rgba(245,165,36,.05); border-left: 1px solid rgba(245,165,36,.6)"></div>
+                <svg viewBox="0 0 250 70" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible">
+                  <path class="glow" d="{{a.line}}" fill="none" stroke="#f5a524" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+                </svg>
+              </div>
+              <div style="position: relative; height: 16px">
+                <sc-for list="{{a.ticks}}" as="t" hint-placeholder-count="5">
+                  <span class="faint" style="position: absolute; left: {{t.left}}; transform: translateX(-50%); font-size: 11px; white-space: nowrap">{{t.label}}</span>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding-left: 20px; border-left: 1px solid #1d212a">
+              <span class="lbl">Checkpoints</span>
+              <sc-for list="{{a.cps}}" as="c" hint-placeholder-count="3">
+                <div style="display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid #1c2029">
+                  <span style="font-size: 13px; font-weight: 600; width: 60px">{{c.label}}</span>
+                  <sc-if value="{{c.done}}" hint-placeholder-val="{{true}}">
+                    <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px">
+                      <span style="display: flex; gap: 8px; align-items: center"><span style="font-size: 14px; font-weight: 600">{{c.val}}</span><span class="{{c.d.cls}}">{{c.d.text}}</span></span>
+                      <span class="faint" style="font-size: 11px">{{c.closed}}</span>
+                    </span>
+                  </sc-if>
+                  <sc-if value="{{c.pending}}" hint-placeholder-val="{{false}}">
+                    <span class="faint" style="font-size: 12px; text-align: right">{{c.due}}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <div style="font-size: 13px; line-height: 1.5; color: #d4d8df; background: #14171d; border-radius: 10px; padding: 12px 14px"><span class="lbl" style="display: block; margin-bottom: 4px; color: #f5a524">Next step</span>{{a.action}}</div>
+              <button type="button" class="ghost" onClick="{{a.go}}" style="align-self: flex-start">Open office</button>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </sc-if>
+
+  </main>
+</div>
+</template>
+<script>
+
+// Minimal renderer for the dashboard template: {{holes}}, <sc-for>, <sc-if>, on* handlers.
+class DCLogic {
+  constructor(props) { this.props = props || {}; this.state = {}; }
+  setState(p) { this.state = Object.assign({}, this.state, typeof p === 'function' ? p(this.state) : p); scheduleRender(); }
+  forceUpdate() { scheduleRender(); }
+}
+const HOLE = /\{\{\s*([^}]+?)\s*\}\}/g;
+function lookup(scope, path) {
+  if (path === 'true') return true;
+  if (path === 'false') return false;
+  if (/^-?\d+(\.\d+)?$/.test(path)) return Number(path);
+  let v = scope;
+  for (const k of path.split('.')) { if (v == null) return undefined; v = v[k]; }
+  return v;
+}
+function whole(str) { const m = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/.exec(str); return m ? m[1] : null; }
+function interp(str, scope) { return str.replace(HOLE, (_, p) => { const v = lookup(scope, p); return v == null ? '' : String(v); }); }
+const EVENTS = { onClick: 'click', onMouseEnter: 'mouseenter', onMouseLeave: 'mouseleave', onChange: 'change', onInput: 'input' };
+function renderNodes(nodes, scope, out) {
+  for (const n of nodes) {
+    if (n.nodeType === 3) { out.push(document.createTextNode(interp(n.nodeValue, scope))); continue; }
+    if (n.nodeType !== 1) continue;
+    const tag = n.localName;
+    if (tag === 'sc-for') {
+      const list = lookup(scope, whole(n.getAttribute('list'))) || [];
+      const as = n.getAttribute('as');
+      list.forEach((item, i) => { const s = Object.create(scope); s[as] = item; s.$index = i; renderNodes(n.childNodes, s, out); });
+      continue;
+    }
+    if (tag === 'sc-if') {
+      if (lookup(scope, whole(n.getAttribute('value')))) renderNodes(n.childNodes, scope, out);
+      continue;
+    }
+    const el = n.namespaceURI === 'http://www.w3.org/2000/svg' ? document.createElementNS(n.namespaceURI, n.tagName) : document.createElement(tag);
+    for (const a of n.attributes) {
+      if (a.name.startsWith('hint-')) continue;
+      const ev = Object.keys(EVENTS).find((k) => k.toLowerCase() === a.name.toLowerCase());
+      if (ev) { const fn = lookup(scope, whole(a.value)); if (typeof fn === 'function') el.addEventListener(EVENTS[ev], fn); continue; }
+      el.setAttribute(a.name, interp(a.value, scope));
+    }
+    const kids = [];
+    renderNodes(n.childNodes, scope, kids);
+    kids.forEach((k) => el.appendChild(k));
+    out.push(el);
+  }
+  return out;
+}
+let comp, tplRoot, mount, pending = false;
+function scheduleRender() { if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; draw(); }); } }
+function draw() {
+  const focusables = () => Array.from(mount.querySelectorAll('button'));
+  const fi = focusables().indexOf(document.activeElement);
+  const nodes = renderNodes(tplRoot.childNodes, comp.renderVals(), []);
+  mount.replaceChildren(...nodes);
+  if (fi >= 0 && focusables()[fi]) focusables()[fi].focus({ preventScroll: true });
+}
+
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { page: 'overview', mode: 'QoQ', channel: 'all', region: 'all', office: 'all', hov: null, tLevel: 'course', tCourse: null, tModule: null, tSort: 'order', tSel: null };
+  }
+
+  data() {
+    if (this._d) return this._d;
+    let seed = 917;
+    const r = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    for (let i = 0; i < 20; i++) r();
+    const rr = (a, b) => a + (b - a) * r();
+    const cl = (v, a, b) => Math.max(a, Math.min(b, v));
+    const CH = [
+      { id: 'retail', name: 'Retail', sra: 2.6, rec: 0.22 },
+      { id: 'chain', name: 'Chain', sra: 2.2, rec: 0.18 },
+      { id: 'air', name: 'Air', sra: 1.7, rec: 0.15 },
+      { id: 'street', name: 'Street', sra: 3.1, rec: 0.34 },
+      { id: 'block', name: 'Block', sra: 2.8, rec: 0.3 }
+    ];
+    const RG = [
+      { id: 'ca', name: 'California', offices: [{ id: 'la', name: 'Los Angeles' }, { id: 'sd', name: 'San Diego' }, { id: 'fresno', name: 'Fresno' }] },
+      { id: 'sw', name: 'Southwest', offices: [{ id: 'phoenix', name: 'Phoenix' }, { id: 'vegas', name: 'Las Vegas' }] },
+      { id: 'tx', name: 'Texas', offices: [{ id: 'houston', name: 'Houston' }, { id: 'dallas', name: 'Dallas' }, { id: 'sa', name: 'San Antonio' }] },
+      { id: 'se', name: 'Southeast', offices: [{ id: 'tampa', name: 'Tampa' }, { id: 'orlando', name: 'Orlando' }] },
+      { id: 'ne', name: 'Northeast', offices: [{ id: 'boston', name: 'Boston' }, { id: 'li', name: 'Long Island' }] }
+    ];
+    const leaves = [];
+    CH.forEach((c) => RG.forEach((g) => g.offices.forEach((o) => {
+      const reps = Math.round(rr(10, 34));
+      let sraRate = c.sra * rr(0.9, 1.1), sraSlope = rr(0, 0.006);
+      let capC = rr(0.75, 0.82), capSlope = rr(-0.0004, 0.0008);
+      let insC = rr(0.83, 0.9), insSlope = rr(-0.0004, 0.0008);
+      let req = rr(89, 99), opt = rr(0.55, 0.8), ret = rr(0.94, 1.04), slow = 1, inc = rr(5600, 9400);
+      if (c.id === 'street') sraSlope -= 0.011;
+      if (o.id === 'houston') { insSlope = -0.009; insC -= 0.01; req = rr(93, 98); }
+      if (o.id === 'fresno') { req = rr(56, 66); capC -= 0.06; insC -= 0.04; opt *= 0.6; sraRate *= 0.9; slow = 1.35; inc *= 0.8; }
+      if (o.id === 'orlando') { capSlope = -0.0045; req = rr(90, 95); }
+      if (o.id === 'li') { ret *= 0.82; req = rr(80, 86); }
+      if (o.id === 'phoenix') { sraSlope += 0.006; req = rr(96, 100); }
+      const m = { reps: [], sra: [], cap: [], ins: [], rec: [] };
+      for (let i = 0; i < 24; i++) {
+        const season = 1 + 0.03 * Math.sin((i - 4) / 12 * 2 * Math.PI);
+        const rp = reps * (1 + 0.004 * i) * rr(0.97, 1.03);
+        const sra = rp * sraRate * season * (1 + sraSlope * (i - 12)) * rr(0.93, 1.07);
+        const cap = sra * cl(capC + capSlope * (i - 12), 0.4, 0.95) * rr(0.97, 1.03);
+        const ins = cap * cl(insC + insSlope * (i - 12), 0.4, 0.97) * rr(0.97, 1.03);
+        m.reps.push(rp); m.sra.push(sra); m.cap.push(cap); m.ins.push(ins); m.rec.push(rp * c.rec * rr(0.8, 1.2) * (o.id === 'li' ? 0.7 : 1));
+      }
+      const tr = {
+        runx: cl(req + rr(-2, 2), 0, 100), orient: cl(req + rr(-3, 2), 0, 100),
+        play: cl(req + rr(-9, 0), 0, 100), boot: cl(req + rr(-14, -2), 0, 100),
+        open: cl(opt * 100 + rr(8, 16), 0, 100), comp: cl(opt * 100 * rr(0.6, 0.78), 0, 100),
+        rerun: cl(opt * rr(18, 32), 0, 100), prog: cl(opt * 100 * rr(0.78, 0.95), 0, 100)
+      };
+      const base = [0.94, 0.84, 0.72, 0.57, 0.48, 0.41];
+      leaves.push({
+        ch: c.id, rg: g.id, of: o.id, chName: c.name, rgName: g.name, ofName: o.name, reps, m, tr,
+        trReq: (tr.runx + tr.orient + tr.play + tr.boot) / 4,
+        ret: base.map((b, k) => cl(b * Math.pow(ret, (k + 1) / 2) * rr(0.98, 1.02), 0, 1)),
+        combine: cl(rr(68, 88) * (o.id === 'li' ? 0.85 : 1) * (o.id === 'fresno' ? 0.8 : 1), 0, 100),
+        speed: { sra: rr(6, 13) * slow, ins: rr(52, 78) * slow, rec: rr(38, 88) * slow, eq: rr(120, 190) * slow },
+        rook: { ins: rr(2.6, 4.8) / slow, inc, rec: rr(0.3, 1.1) },
+        tvu: { dT: rr(8, 13), dU: rr(14, 22), cT: rr(1.04, 1.08), cU: rr(0.84, 0.9), pT: rr(1.04, 1.08), pU: rr(0.74, 0.84) }
+      });
+    })));
+    const n = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const MONTHS = [];
+    for (let i = 0; i < 24; i++) { const mi = (10 + i) % 12, y = 2024 + Math.floor((10 + i) / 12); MONTHS.push({ l: n[mi] + ' ' + y, s: n[mi] + " '" + String(y).slice(2) }); }
+    const CAT = [
+      { id: 'runx', name: 'RunXLearning Compliance', req: true, trk: 'runx', stage: 'all', mods: [
+        ['Code of Conduct & Ethics', ['Ethical Selling', 'Customer Disclosures', 'Do-Not-Knock Rules']],
+        ['Licensing & State Rules', ['Solicitor Permits', 'State-by-State Rules']],
+        ['Customer Data Privacy', ['Handling Customer Data']]] },
+      { id: 'orient', name: 'New Rep Orientation', req: true, trk: 'orient', stage: 'ramp', mods: [
+        ['Welcome to Sunrun', ['Our Mission', 'Comp Plan Explained']],
+        ['Product Basics', ['How Solar Works', 'Lease vs. PPA vs. Loan', 'Battery Storage']],
+        ['Tools & Systems', ['CRM Walkthrough', 'Proposal Tool']]] },
+      { id: 'play', name: 'Sales Playbooks', req: true, trk: 'play', stage: 'sra', mods: [
+        ['Door Approach', ['The First 10 Seconds', 'Handling “Not Interested”']],
+        ['Discovery & Bill Analysis', ['Reading a Utility Bill', 'Telling the Savings Story']],
+        ['Closing the SRA', ['Assumptive Close', 'Objection Handling']]] },
+      { id: 'boot', name: 'Bootcamp: CAP to Install', req: true, trk: 'boot', stage: 'c2', mods: [
+        ['Site Survey Readiness', ['Prepping the Homeowner', 'Photo Requirements']],
+        ['Permitting & CAP', ['What Happens After the SRA', 'Setting Timeline Expectations']],
+        ['Install Day & Cancellation Saves', ['The Pre-Install Call', 'Saving a Cancel']]] },
+      { id: 'adv', name: 'Advanced Closing', req: false, adj: 2, stage: 'c1', mods: [
+        ['Paperwork Accuracy', ['Clean SRA Checklist', 'Common CAP Rejections']],
+        ['Financing Deep Dive', ['Credit Basics', 'Loan Options Compared']]] },
+      { id: 'recr', name: 'Recruiting & Leadership', req: false, adj: 8, stage: 'rec', mods: [
+        ['Sharing the Opportunity', ['Telling Your Story', 'The Recruiting Conversation']],
+        ['Combine Draft', ['Running a Combine', 'Onboarding Rookies']]] }
+    ];
+    const UNIT = { all: 'pts', ramp: 'days', sra: '%', c1: 'pts', c2: 'pts', rec: '%' };
+    const COURSES = CAT.map((cr) => {
+      const mods = cr.mods.map(([mname, vids], mi) => {
+        const mid = cr.id + '-m' + mi;
+        const vs = vids.map((vname, vi) => {
+          const u = UNIT[cr.stage];
+          const v = {
+            id: mid + '-v' + vi, name: vname, min: Math.round(rr(4, 15)),
+            off: rr(-1, 4) - (mi * 2 + vi) * 0.6, st: rr(3, 9), prog: rr(0.72, 0.92), rerun: rr(4, 14),
+            lift: u === 'pts' ? rr(1.4, 4.6) : (u === 'days' ? rr(1.2, 4) : rr(5, 16)), dip: false
+          };
+          if (vname === 'Saving a Cancel') { v.off = -30; v.lift = 8.6; }
+          if (vname === 'The Pre-Install Call') { v.off = -14; v.lift = 5.2; }
+          if (mname === 'Permitting & CAP') { v.prog = rr(0.54, 0.6); v.dip = true; }
+          if (vname === 'Battery Storage') { v.lift = 0.3; v.off = 2; }
+          if (vname === 'Comp Plan Explained') v.rerun = 34;
+          if (vname === 'Reading a Utility Bill') v.lift = 21;
+          return v;
+        });
+        return { id: mid, name: mname, vids: vs };
+      });
+      return Object.assign({}, cr, { mods });
+    });
+    this._d = { CH, RG, leaves, MONTHS, COURSES, UNIT };
+    return this._d;
+  }
+
+  agg(ls) {
+    const z = () => new Array(24).fill(0);
+    const m = { reps: z(), sra: z(), cap: z(), ins: z(), rec: z() };
+    ls.forEach((l) => { for (const k in m) for (let i = 0; i < 24; i++) m[k][i] += l.m[k][i]; });
+    return m;
+  }
+  win(m, idx) {
+    const s = { reps: 0, sra: 0, cap: 0, ins: 0, rec: 0 };
+    idx.forEach((i) => { for (const k in s) s[k] += m[k][i]; });
+    s.sraP = s.sra / s.reps; s.capP = s.cap / s.reps; s.insP = s.ins / s.reps; s.recP = s.rec / s.reps;
+    s.c1 = s.cap / s.sra; s.c2 = s.ins / s.cap; s.c3 = s.ins / s.sra; s.avgReps = s.reps / idx.length;
+    return s;
+  }
+  wavg(ls, f) { let a = 0, w = 0; ls.forEach((l) => { a += f(l) * l.reps; w += l.reps; }); return w ? a / w : 0; }
+  chip(v, unit, inv) {
+    const flat = Math.abs(v) < 0.5;
+    const good = inv ? v < 0 : v > 0;
+    const arrow = flat ? '–' : (v > 0 ? '▲' : '▼');
+    const sign = v > 0 ? '+' : (v < 0 ? '−' : '');
+    return { cls: 'chip ' + (flat ? 'flat' : (good ? 'up' : 'down')), text: arrow + ' ' + sign + Math.abs(v).toFixed(1) + unit };
+  }
+  pct(v) { return (v * 100).toFixed(1) + '%'; }
+  int(v) { return Math.round(v).toLocaleString('en-US'); }
+  money(v) {
+    const a = Math.abs(v);
+    if (a >= 1e6) return '$' + (a / 1e6).toFixed(1) + 'M';
+    if (a >= 1e3) return '$' + Math.round(a / 1e3) + 'K';
+    return '$' + Math.round(a);
+  }
+  path(arr, w, h, lo, hi, centered) {
+    const n = arr.length;
+    return 'M' + arr.map((v, i) => {
+      const x = centered ? (i + 0.5) / n * w : i / (n - 1) * w;
+      const y = h * (1 - (v - lo) / (hi - lo));
+      return x.toFixed(1) + ' ' + y.toFixed(1);
+    }).join(' L');
+  }
+  range(arrs) {
+    const all = [].concat(...arrs);
+    let lo = Math.min(...all), hi = Math.max(...all);
+    const pad = (hi - lo) * 0.15 || 0.05;
+    return [lo - pad, hi + pad];
+  }
+  mix(a, b, t) {
+    const h = (x) => [1, 3, 5].map((i) => parseInt(x.slice(i, i + 2), 16));
+    const A = h(a), B = h(b);
+    return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
+  }
+  status(dIns, c2, tr, tgt) {
+    if (dIns < -6 || c2 < 0.76 || tr < tgt - 15) return { cls: 'st crit', label: 'At risk' };
+    if (dIns < -2 || tr < tgt) return { cls: 'st warn', label: 'Watch' };
+    return { cls: 'st good', label: 'On track' };
+  }
+
+  renderVals() {
+    const { CH, RG, leaves, MONTHS } = this.data();
+    const S = this.state;
+    const ch = S.channel, rg = S.region, of = S.office;
+    const REV = this.props.revPerInstall ?? 32000;
+    const TGT = this.props.trainingTarget ?? 90;
+    const R = (a, b) => { const o = []; for (let i = a; i < b; i++) o.push(i); return o; };
+    const MODES = {
+      MoM: { cur: [23], prev: [22], lab: 'Oct 2026 vs. Sep 2026', short: 'vs. Sep' },
+      QoQ: { cur: [21, 22, 23], prev: [18, 19, 20], lab: 'Aug–Oct 2026 vs. May–Jul 2026', short: 'vs. prior quarter' },
+      YoY: { cur: R(12, 24), prev: R(0, 12), lab: 'Nov 2025–Oct 2026 vs. prior 12 months', short: 'vs. prior year' }
+    };
+    const M = MODES[S.mode];
+    const chObj = CH.find((c) => c.id === ch), rgObj = RG.find((g) => g.id === rg);
+    const ofObj = rgObj && rgObj.offices.find((o) => o.id === of);
+    const inScope = (l) => (ch === 'all' || l.ch === ch) && (rg === 'all' || l.rg === rg) && (of === 'all' || l.of === of);
+    const ls = leaves.filter(inScope);
+    const A = this.agg(ls), AC = this.agg(leaves);
+    const c = this.win(A, M.cur), p = this.win(A, M.prev), cc = this.win(AC, M.cur);
+
+    const parts = [chObj ? chObj.name : 'All channels'];
+    if (rgObj) parts.push(rgObj.name);
+    if (ofObj) parts.push(ofObj.name);
+    const scopeName = parts.join(' · ');
+    const scopeShort = ofObj ? ofObj.name : (rgObj ? rgObj.name : (chObj ? chObj.name : 'All channels'));
+
+    // ---------- nav + filters
+    const pages = [
+      { id: 'overview', label: 'Overview', kicker: 'Academy KPIs', title: 'Per-rep performance' },
+      { id: 'funnel', label: 'Funnel & Retention', kicker: 'Conversion & ramp', title: 'Funnel, retention & new-rep speed' },
+      { id: 'training', label: 'Training Impact', kicker: 'Adoption & effectiveness', title: 'Is training moving the numbers?' },
+      { id: 'improve', label: 'Areas to Improve', kicker: 'Diagnose & act', title: 'Where to focus next' },
+      { id: 'follow', label: 'Assignments', kicker: 'Follow-through', title: 'Did the training work?' }
+    ];
+    const pg = pages.find((x) => x.id === S.page);
+
+    // ---------- breakdown groups (next level down)
+    let dim, groups;
+    if (ch === 'all') {
+      dim = 'Channel';
+      groups = CH.map((x) => ({ id: x.id, name: x.name, ls: ls.filter((l) => l.ch === x.id), go: () => this.setState({ channel: x.id }) }));
+    } else if (rg === 'all') {
+      dim = 'Region';
+      groups = RG.map((g) => ({ id: g.id, name: g.name, ls: ls.filter((l) => l.rg === g.id), go: () => this.setState({ region: g.id, office: 'all' }) }));
+    } else {
+      dim = 'Office';
+      const base = leaves.filter((l) => l.ch === ch && l.rg === rg);
+      groups = rgObj.offices.map((o) => ({ id: o.id, name: o.name, sel: of === o.id, ls: base.filter((l) => l.of === o.id), go: () => this.setState({ office: o.id }) }));
+    }
+    const rows = groups.filter((g) => g.ls.length).map((g) => {
+      const a = this.agg(g.ls), gc = this.win(a, M.cur), gp = this.win(a, M.prev);
+      const tr = this.wavg(g.ls, (l) => l.trReq);
+      const dIns = (gc.insP / gp.insP - 1) * 100;
+      const st = this.status(dIns, gc.c2, tr, TGT);
+      return {
+        name: g.name, go: g.go, cls: 'trow' + (g.sel ? ' sel' : ''),
+        reps: this.int(gc.avgReps), sra: gc.sraP.toFixed(2), cap: gc.capP.toFixed(2), ins: gc.insP.toFixed(2), rec: gc.recP.toFixed(2),
+        c1: this.pct(gc.c1), c2: this.pct(gc.c2), tr: Math.round(tr) + '%', trv: tr,
+        d: this.chip(dIns, '%'), stCls: st.cls, stLabel: st.label
+      };
+    });
+    const bdTitle = dim === 'Channel' ? 'By channel' : (dim === 'Region' ? 'Regions in ' + chObj.name : 'Offices in ' + rgObj.name + (chObj ? ' · ' + chObj.name : ''));
+
+    // ---------- KPIs
+    const kdef = [['Deals (SRAs) per rep', 'sra', 'sraP', 'SRAs'], ['CAPs per rep', 'cap', 'capP', 'CAPs'], ['Installs per rep', 'ins', 'insP', 'installs'], ['Recruits per rep', 'rec', 'recP', 'recruits']];
+    const kpis = kdef.map(([label, k, pk, noun]) => {
+      const ser = A[k].map((v, i) => v / A.reps[i]);
+      const [lo, hi] = this.range([ser]);
+      return {
+        label, value: c[pk].toFixed(2), d: this.chip((c[pk] / p[pk] - 1) * 100, '%'), cmp: M.short,
+        spark: this.path(ser, 200, 40, lo, hi, false),
+        total: this.int(c[k]) + ' ' + noun + ' · company ' + cc[pk].toFixed(2)
+      };
+    });
+    const rev = [
+      { label: 'Installs this period', value: this.int(c.ins), d: this.chip((c.ins / p.ins - 1) * 100, '%'), note: M.short },
+      { label: 'Est. install revenue', value: this.money(c.ins * REV), d: this.chip((c.ins / p.ins - 1) * 100, '%'), note: M.short },
+      { label: 'Revenue change', value: (c.ins >= p.ins ? '+' : '−') + this.money((c.ins - p.ins) * REV), d: { cls: 'chip flat', text: M.short }, note: '' },
+      { label: 'Active reps (avg / mo)', value: this.int(c.avgReps), d: this.chip((c.avgReps / p.avgReps - 1) * 100, '%'), note: M.short }
+    ];
+
+    // ---------- trend
+    const sv = A.ins.map((v, i) => v / A.reps[i]), cv = AC.ins.map((v, i) => v / AC.reps[i]);
+    const [lo, hi] = this.range([sv, cv]);
+    const hv = S.hov == null ? 23 : S.hov;
+    const trend = {
+      sc: this.path(sv, 1000, 240, lo, hi, true), scArea: this.path(sv, 1000, 240, lo, hi, true) + ' L979.2 240 L20.8 240 Z', co: this.path(cv, 1000, 240, lo, hi, true),
+      yt: [0, 1, 2, 3].map((k) => ({ top: (100 - k / 3 * 100).toFixed(2) + '%', label: (lo + (hi - lo) * k / 3).toFixed(1) })),
+      winLeft: (M.cur[0] / 24 * 100).toFixed(2) + '%', winW: (M.cur.length / 24 * 100).toFixed(2) + '%',
+      hx: ((hv + 0.5) / 24 * 100).toFixed(2) + '%', hy: ((1 - (sv[hv] - lo) / (hi - lo)) * 100).toFixed(2) + '%',
+      tipTx: hv > 13 ? 'translateX(calc(-100% - 14px))' : 'translateX(14px)',
+      tipMonth: MONTHS[hv].l, tipS: sv[hv].toFixed(2), tipC: cv[hv].toFixed(2),
+      hits: R(0, 24).map((i) => ({ enter: () => this.setState({ hov: i }) })),
+      leave: () => this.setState({ hov: null }),
+      xl: R(0, 24).map((i) => ({ t: i % 3 === 2 ? MONTHS[i].s : '' }))
+    };
+
+    // ---------- funnel
+    const cdefs = [null, { label: 'SRA → CAP', k: 'c1' }, { label: 'CAP → Install', k: 'c2' }];
+    const stagesRaw = [['SRAs signed', c.sra], ['CAPs approved', c.cap], ['Installs', c.ins]];
+    const stages = stagesRaw.map(([name, v], i) => {
+      const d = cdefs[i];
+      return {
+        name, count: this.int(v), w: (v / c.sra * 100).toFixed(1) + '%', hasConv: !!d,
+        convLabel: d ? d.label : '', conv: d ? this.pct(c[d.k]) : '',
+        d: d ? this.chip((c[d.k] - p[d.k]) * 100, ' pts') : { cls: '', text: '' },
+        co: d ? 'co. ' + this.pct(cc[d.k]) : ''
+      };
+    });
+    const sc = (k) => (c[k] - p[k]) + (c[k] - cc[k]);
+    const wk = sc('c1') < sc('c2') ? cdefs[1] : cdefs[2];
+    const vsCo = (c[wk.k] - cc[wk.k]) * 100, vsP = (c[wk.k] - p[wk.k]) * 100;
+    const funnel = {
+      stages, worst: wk.label,
+      worstNote: wk.label + ' is ' + this.pct(c[wk.k]) + ', ' + Math.abs(vsCo).toFixed(1) + ' pts ' + (vsCo < 0 ? 'below' : 'above') + ' company and ' + (vsP < 0 ? 'down ' : 'up ') + Math.abs(vsP).toFixed(1) + ' pts ' + M.short + '. End-to-end SRA → Install: ' + this.pct(c.c3) + '.'
+    };
+
+    // ---------- funnel page
+    const convs = [['SRA → CAP', 'cap', 'sra', 'c1'], ['CAP → Install', 'ins', 'cap', 'c2'], ['SRA → Install (end to end)', 'ins', 'sra', 'c3']].map(([label, nu, de, k]) => {
+      const s = A[nu].map((v, i) => v / A[de][i]), co = AC[nu].map((v, i) => v / AC[de][i]);
+      const [l2, h2] = this.range([s, co]);
+      const g = (c[k] - cc[k]) * 100;
+      return {
+        label, value: this.pct(c[k]), d: this.chip((c[k] - p[k]) * 100, ' pts'), co: this.pct(cc[k]),
+        gap: Math.abs(g).toFixed(1) + ' pts ' + (g < 0 ? 'below' : 'above'),
+        scPath: this.path(s, 300, 80, l2, h2, false), coPath: this.path(co, 300, 80, l2, h2, false)
+      };
+    });
+    const ret = ['1 mo', '3 mo', '6 mo', '12 mo', '18 mo', '24 mo'].map((label, k) => {
+      const s = this.wavg(ls, (l) => l.ret[k]), co = this.wavg(leaves, (l) => l.ret[k]);
+      return { label, val: Math.round(s * 100) + '%', w: (s * 100).toFixed(1) + '%', mk: (co * 100).toFixed(1) + '%', d: this.chip((s - co) * 100, ' pts') };
+    });
+    const speed = [['Days to 1st SRA', 'sra'], ['Days to 1st install', 'ins'], ['Days to 1st recruit', 'rec'], ['Days to earned equity', 'eq']].map(([label, k]) => {
+      const s = this.wavg(ls, (l) => l.speed[k]), co = this.wavg(leaves, (l) => l.speed[k]);
+      return { label, value: Math.round(s), co: 'Company ' + Math.round(co) + ' days', d: this.chip((s / co - 1) * 100, '%', true) };
+    });
+    const rk = (f) => [this.wavg(ls, f), this.wavg(leaves, f)];
+    const [ri, rci] = rk((l) => l.rook.ins), [rm, rcm] = rk((l) => l.rook.inc), [rr2, rcr] = rk((l) => l.rook.rec), [cb, ccb] = rk((l) => l.combine);
+    const rookie = [
+      { label: 'Rookie installs · first 90 days', value: ri.toFixed(1), d: this.chip((ri / rci - 1) * 100, '%'), co: 'Company ' + rci.toFixed(1) },
+      { label: 'Rookie avg. monthly income', value: this.money(rm), d: this.chip((rm / rcm - 1) * 100, '%'), co: 'Company ' + this.money(rcm) },
+      { label: 'Rookie recruits · first 90 days', value: rr2.toFixed(2), d: this.chip((rr2 / rcr - 1) * 100, '%'), co: 'Company ' + rcr.toFixed(2) },
+      { label: 'Combine draft completion', value: Math.round(cb) + '%', d: this.chip(cb - ccb, ' pts'), co: 'Company ' + Math.round(ccb) + '%' }
+    ];
+
+    // ---------- training page
+    const reqDefs = [['RunXLearning (compliance)', 'runx'], ['Orientation', 'orient'], ['Playbooks', 'play'], ['Bootcamps', 'boot']];
+    const req = reqDefs.map(([label, k]) => {
+      const v = this.wavg(ls, (l) => l.tr[k]);
+      const ok = v >= TGT;
+      return { label, val: Math.round(v) + '%', w: v.toFixed(1) + '%', color: ok ? '#f5a524' : '#f07070', stCls: ok ? 'st good' : (v < TGT - 15 ? 'st crit' : 'st warn'), stLabel: ok ? 'On target' : 'Below target' };
+    });
+    const opt = [['Open rate', 'open', 'opened at least one'], ['Completion rate', 'comp', 'finished a module'], ['Rerun rate', 'rerun', 'watched 2x or more'], ['Progression', 'prog', 'avg. % of material done']].map(([label, k, desc]) => {
+      const v = this.wavg(ls, (l) => l.tr[k]);
+      return { label, desc, val: Math.round(v) + '%', w: v.toFixed(1) + '%' };
+    });
+    const reqAvg = this.wavg(ls, (l) => l.trReq);
+    const share = this.wavg(ls, (l) => Math.min(1, Math.max(0, (l.trReq - 40) / 60)));
+    const a6 = this.win(A, R(18, 24));
+    const convT = a6.c3 * this.wavg(ls, (l) => l.tvu.cT), convU = a6.c3 * this.wavg(ls, (l) => l.tvu.cU);
+    const dT = this.wavg(ls, (l) => l.tvu.dT), dU = this.wavg(ls, (l) => l.tvu.dU);
+    const pT = c.insP * this.wavg(ls, (l) => l.tvu.pT), pU = c.insP * this.wavg(ls, (l) => l.tvu.pU);
+    const tvu = [
+      { label: 'Days to first deal', t: Math.round(dT), u: Math.round(dU), lift: Math.round(dU - dT) + ' days faster' },
+      { label: 'SRA → Install, first 6 mo', t: this.pct(convT), u: this.pct(convU), lift: '+' + ((convT - convU) * 100).toFixed(1) + ' pts' },
+      { label: 'Installs per rep / mo', t: pT.toFixed(2), u: pU.toFixed(2), lift: '+' + Math.round((pT / pU - 1) * 100) + '%' }
+    ];
+    const untrainedReps = c.avgReps * (1 - share);
+    const tvuGain = (pT - pU) * untrainedReps * 3;
+    const tvuNote = 'About ' + Math.round(untrainedReps) + ' active reps in ' + scopeShort + ' haven’t finished required training. Bringing them to the trained average is worth roughly +' + this.int(tvuGain) + ' installs (' + this.money(tvuGain * REV) + ') per quarter.';
+    const prog = this.wavg(ls, (l) => l.tr.prog);
+    const liftScore = Math.max(0, Math.min(100, 40 + (convT - convU) * 100 * 3));
+    const score = Math.round(0.4 * reqAvg + 0.2 * prog + 0.4 * liftScore);
+    const eff = {
+      score, w: score + '%', dash: (score / 100 * 351.86).toFixed(1) + ' 351.86', aria: 'Training effectiveness score ' + score + ' of 100',
+      band: score >= 80 ? 'Strong' : (score >= 65 ? 'Moderate' : 'Weak'),
+      stCls: score >= 80 ? 'st good' : (score >= 65 ? 'st warn' : 'st crit'),
+      parts: [
+        { label: 'Required completion', wt: '40%', v: Math.round(reqAvg) },
+        { label: 'Optional progression', wt: '20%', v: Math.round(prog) },
+        { label: 'Conversion lift, trained vs. not', wt: '40%', v: Math.round(liftScore) }
+      ]
+    };
+    const compl = groups.filter((g) => g.ls.length).map((g) => {
+      const v = this.wavg(g.ls, (l) => l.trReq);
+      const ok = v >= TGT;
+      return { name: g.name, go: g.go, v, val: Math.round(v) + '%', w: v.toFixed(1) + '%', color: ok ? '#f5a524' : '#f07070', stCls: ok ? 'st good' : (v < TGT - 15 ? 'st crit' : 'st warn'), stLabel: ok ? 'Compliant' : 'Get compliant' };
+    }).sort((x, y) => x.v - y.v);
+
+    // ---------- content performance (course > module > video)
+    const { COURSES, UNIT } = this.data();
+    const STL = { all: 'SRA → Install', ramp: 'Days to 1st SRA', sra: 'SRAs per rep', c1: 'SRA → CAP', c2: 'CAP → Install', rec: 'Recruits per rep' };
+    const compBase = this.wavg(ls, (l) => l.tr.comp);
+    const pf = prog / this.wavg(leaves, (l) => l.tr.prog);
+    const lscore = (lift, u) => Math.max(0, Math.min(100, 40 + lift * (u === 'pts' ? 8 : (u === 'days' ? 10 : 2.5))));
+    const fmtLift = (lift, u) => u === 'days' ? lift.toFixed(1) + ' days faster' : '+' + lift.toFixed(1) + (u === 'pts' ? ' pts' : '%');
+    const dur = (m) => m >= 60 ? Math.floor(m / 60) + 'h ' + (m % 60) + 'm' : m + ' min';
+    const mean = (arr, f) => arr.reduce((s, x) => s + f(x), 0) / arr.length;
+    const statusOf = (it) => {
+      if (it.req && it.comp < TGT - 15) return { cls: 'st crit', label: 'Low completion' };
+      if (it.ls >= 75 && it.comp < (it.req ? TGT - 10 : 60)) return { cls: 'st warn', label: 'Under-watched' };
+      if (it.prog < 62) return { cls: 'st warn', label: 'Drop-off' };
+      if (it.req && it.comp < TGT - 5) return { cls: it.comp < TGT - 15 ? 'st crit' : 'st warn', label: 'Low completion' };
+      if (it.ls < 45) return { cls: 'st warn', label: 'Low impact' };
+      return { cls: 'st good', label: 'Effective' };
+    };
+    const finish = (it) => {
+      it.ls = lscore(it.lift, it.u);
+      it.score = Math.round(0.4 * it.comp + 0.2 * it.prog + 0.4 * it.ls);
+      it.st = statusOf(it);
+      return it;
+    };
+    const roll = (kids) => {
+      const min = kids.reduce((s, x) => s + x.min, 0);
+      return { min, comp: mean(kids, (x) => x.comp), started: mean(kids, (x) => x.started), prog: kids.reduce((s, x) => s + x.prog * x.min, 0) / min, rerun: mean(kids, (x) => x.rerun), lift: mean(kids, (x) => x.lift) };
+    };
+    const cItems = COURSES.map((cr) => {
+      const base = cr.req ? this.wavg(ls, (l) => l.tr[cr.trk]) : compBase + cr.adj;
+      const u = UNIT[cr.stage];
+      const mItems = cr.mods.map((md) => {
+        const vItems = md.vids.map((v) => {
+          const comp = Math.max(3, Math.min(100, base + v.off));
+          return finish({
+            kind: 'video', id: v.id, name: v.name, req: cr.req, u, stage: cr.stage, cid: cr.id, mid: md.id, path: cr.name + ' › ' + md.name,
+            min: v.min, comp, started: Math.min(100, comp + v.st), prog: Math.min(98, v.prog * 100 * pf), rerun: v.rerun, lift: v.lift, src: v
+          });
+        });
+        return finish(Object.assign({ kind: 'module', id: md.id, name: md.name, req: cr.req, u, stage: cr.stage, cid: cr.id, path: cr.name, n: vItems.length, vItems }, roll(vItems)));
+      });
+      return finish(Object.assign({ kind: 'course', id: cr.id, name: cr.name, req: cr.req, u, stage: cr.stage, n: mItems.length, nv: mItems.reduce((s, x) => s + x.n, 0), mItems }, roll(mItems)));
+    });
+    const allM = [].concat(...cItems.map((x) => x.mItems)), allV = [].concat(...allM.map((x) => x.vItems));
+    const lvl = S.tLevel, tc = S.tCourse, tm = S.tModule;
+    let citems = lvl === 'course' ? cItems : (lvl === 'module' ? allM.filter((m) => !tc || m.cid === tc) : allV.filter((v) => (!tc || v.cid === tc) && (!tm || v.mid === tm)));
+    if (S.tSort === 'score') citems = citems.slice().sort((a, b) => a.score - b.score);
+    if (S.tSort === 'comp') citems = citems.slice().sort((a, b) => a.comp - b.comp);
+    const contentsOf = (it) => it.kind === 'course' ? it.n + ' modules · ' + it.nv + ' videos · ' + dur(it.min) : (it.kind === 'module' ? it.n + ' videos · ' + dur(it.min) : dur(it.min));
+    const showPath = (lvl === 'module' && !tc) || (lvl === 'video' && !tm);
+    const ctRows = citems.map((it) => ({
+      name: it.name, drill: it.kind !== 'video', type: it.req ? 'Required' : 'Optional', typeCls: it.req ? 'chip req' : 'chip flat',
+      sub: contentsOf(it) + (showPath ? ' · ' + it.path : ''),
+      stage: STL[it.stage], comp: Math.round(it.comp) + '%', prog: Math.round(it.prog) + '%', rerun: Math.round(it.rerun) + '%',
+      lift: fmtLift(it.lift, it.u), score: it.score, stCls: it.st.cls, stLabel: it.st.label,
+      cls: 'crow' + (S.tSel === it.id ? ' sel' : ''),
+      go: it.kind === 'course' ? () => this.setState({ tLevel: 'module', tCourse: it.id, tModule: null, tSel: it.id })
+        : (it.kind === 'module' ? () => this.setState({ tLevel: 'video', tCourse: it.cid, tModule: it.id, tSel: it.id }) : () => this.setState({ tSel: it.id }))
+    }));
+    const crs = tc && cItems.find((x) => x.id === tc), mdl = tm && allM.find((x) => x.id === tm);
+    const crumbs = [{ name: 'All courses', sep: false, link: lvl !== 'course', here: lvl === 'course', go: () => this.setState({ tLevel: 'course', tCourse: null, tModule: null, tSel: null }) }];
+    if (crs) crumbs.push({ name: crs.name, sep: true, link: !!mdl || lvl === 'video', here: !mdl && lvl !== 'video', go: () => this.setState({ tLevel: 'module', tCourse: crs.id, tModule: null, tSel: crs.id }) });
+    if (mdl) crumbs.push({ name: mdl.name, sep: true, link: false, here: true, go: null });
+    else if (!crs && lvl !== 'course') crumbs.push({ name: lvl === 'module' ? 'All modules' : 'All videos', sep: true, link: false, here: true, go: null });
+    else if (crs && lvl === 'video') crumbs.push({ name: 'All videos', sep: true, link: false, here: true, go: null });
+    const findC = (id) => cItems.find((x) => x.id === id) || allM.find((x) => x.id === id) || allV.find((x) => x.id === id);
+    const fo = (S.tSel && findC(S.tSel)) || citems[0];
+    const outstanding = Math.round(c.avgReps * (1 - fo.comp / 100));
+    const sl = fo.st.label;
+    let insight;
+    if (sl === 'Under-watched') insight = 'High-impact content that too few reps finish: only ' + Math.round(fo.comp) + '% have completed it, and those who do show ' + fmtLift(fo.lift, fo.u) + ' on ' + STL[fo.stage] + '. Push it to the ~' + outstanding + ' reps who haven’t' + (fo.req ? '.' : ', or make it required.');
+    else if (sl === 'Low completion') insight = 'Required, but only ' + Math.round(fo.comp) + '% complete (~' + outstanding + ' reps outstanding). Get completion up before judging its impact.';
+    else if (sl === 'Low impact') insight = 'Well watched (' + Math.round(fo.comp) + '% complete) but little measurable lift on ' + STL[fo.stage] + '. Review or refresh the content, or link it to a different metric.';
+    else if (sl === 'Drop-off') insight = 'Reps watch only ' + Math.round(fo.prog) + '% on average. Shorten it or split it into smaller pieces' + (fo.kind === 'video' ? '; the retention curve shows where they leave.' : '.');
+    else insight = 'Completed widely and tied to ' + fmtLift(fo.lift, fo.u) + ' on ' + STL[fo.stage] + '. Keep it' + (fo.req ? ' and reuse it in field training.' : '; consider making it required.');
+    let curve = '', curveArea = '', dropNote = '', curveAria = '';
+    if (fo.kind === 'video') {
+      const e = Math.max(0.2, 1 - 1.8 * (1 - fo.prog / 100));
+      const pts = [];
+      for (let k = 0; k <= 10; k++) { let y = 1 - (1 - e) * Math.pow(k / 10, 0.8); if (fo.src.dip && k >= 4) y -= 0.1; pts.push(Math.max(0.05, y)); }
+      curve = this.path(pts, 300, 80, 0, 1, false);
+      curveArea = curve + ' L300 80 L0 80 Z';
+      let bi = 1, bd2 = 0;
+      for (let k = 1; k <= 10; k++) { const dd = pts[k - 1] - pts[k]; if (dd > bd2) { bd2 = dd; bi = k; } }
+      dropNote = 'Steepest drop near ' + bi * 10 + '% · ' + Math.round(pts[10] * 100) + '% reach the end';
+      curveAria = 'Audience retention falls from 100% to ' + Math.round(pts[10] * 100) + '%, steepest near ' + bi * 10 + '% of the video';
+    }
+    const fbar = (label, v) => ({ label, val: Math.round(v) + '%', w: v.toFixed(1) + '%' });
+    const ct = {
+      levels: [['course', 'Courses'], ['module', 'Modules'], ['video', 'Videos']].map(([k, label]) => ({
+        label, on: lvl === k, cls: lvl === k ? 'on' : '',
+        go: () => this.setState(k === 'course' ? { tLevel: k, tCourse: null, tModule: null } : (k === 'module' ? { tLevel: k, tModule: null } : { tLevel: k }))
+      })),
+      sorts: [['order', 'Catalog'], ['score', 'Lowest score'], ['comp', 'Lowest completion']].map(([k, label]) => ({ label, on: S.tSort === k, cls: S.tSort === k ? 'on' : '', go: () => this.setState({ tSort: k }) })),
+      crumbs, levelName: { course: 'Course', module: 'Module', video: 'Video' }[lvl], rows: ctRows,
+      d: {
+        kind: { course: 'Course', module: 'Module · ' + (fo.path || ''), video: 'Video · ' + (fo.path || '') }[fo.kind],
+        name: fo.name, type: fo.req ? 'Required' : 'Optional', typeCls: fo.req ? 'chip req' : 'chip flat', contents: contentsOf(fo),
+        score: fo.score, stCls: fo.st.cls, stLabel: sl,
+        funnel: [fbar(fo.req ? 'Assigned' : 'Eligible', 100), fbar('Started', fo.started), fbar('Completed', fo.comp), fbar('Rewatched 2x+', fo.rerun)],
+        isVideo: fo.kind === 'video', curve, curveArea, dropNote, curveAria,
+        liftNote: 'Reps who completed it ' + (fo.u === 'days' ? 'reach their first SRA ' + fo.lift.toFixed(1) + ' days faster' : 'show ' + fmtLift(fo.lift, fo.u) + ' on ' + STL[fo.stage]) + ' than reps who haven’t. Average watched: ' + Math.round(fo.prog) + '%.',
+        insight
+      }
+    };
+
+    // ---------- areas to improve
+    const Q = [21, 22, 23], PQ = [18, 19, 20];
+    const med = (arr) => { const s = arr.slice().sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
+    const bench = {};
+    CH.forEach((x) => {
+      const w = leaves.filter((l) => l.ch === x.id).map((l) => this.win(l.m, Q));
+      bench[x.id] = { c1: med(w.map((s) => s.c1)), c2: med(w.map((s) => s.c2)) };
+    });
+    const coRet6 = this.wavg(leaves, (l) => l.ret[2]);
+    const leafComp = (l, cr, v) => Math.max(3, Math.min(100, (cr.req ? l.tr[cr.trk] : l.tr.comp + cr.adj) + v.off));
+    const STK = { c2: 'c2', c1: 'c1', vol: 'sra', ret: 'rec' };
+    const prescribe = (l, k, trGap) => {
+      const picks = [];
+      if (trGap || k === 'tr') {
+        COURSES.filter((cr) => cr.req).forEach((cr) => cr.mods.forEach((md) => {
+          const comp = mean(md.vids, (v) => leafComp(l, cr, v));
+          picks.push({ kind: 'Module', cr, md, id: md.id, name: md.name, comp, liftTxt: 'Required · ' + dur(md.vids.reduce((s, v) => s + v.min, 0)), rank: comp });
+        }));
+      } else {
+        COURSES.filter((cr) => cr.stage === STK[k]).forEach((cr) => cr.mods.forEach((md) => md.vids.forEach((v) => {
+          const comp = leafComp(l, cr, v), u = UNIT[cr.stage];
+          picks.push({ kind: 'Video', cr, md, id: v.id, name: v.name, comp, liftTxt: fmtLift(v.lift, u) + ' on ' + STL[cr.stage], rank: -lscore(v.lift, u) * (1.15 - comp / 100) });
+        })));
+      }
+      picks.sort((a, b) => a.rank - b.rank);
+      return picks.slice(0, 3).map((x) => {
+        const n = Math.max(1, Math.round(l.reps * (1 - x.comp / 100)));
+        return {
+          type: x.kind, typeCls: x.cr.req ? 'chip req' : 'chip flat', name: x.name,
+          path: x.kind === 'Video' ? x.cr.name + ' › ' + x.md.name : x.cr.name,
+          comp: Math.round(x.comp) + '% complete here', lift: x.liftTxt, n, need: n + ' of ' + l.reps + ' reps still need it',
+          go: () => this.setState({ page: 'training', channel: l.ch, region: l.rg, office: l.of, tLevel: x.kind === 'Video' ? 'video' : 'module', tCourse: x.cr.id, tModule: x.kind === 'Video' ? x.md.id : null, tSel: x.id })
+        };
+      });
+    };
+    const assigned = S.assigned || {};
+    const flagsAll = [];
+    ls.forEach((l) => {
+      const q = this.win(l.m, Q), pq = this.win(l.m, PQ), b = bench[l.ch];
+      const cands = [];
+      const g2 = b.c2 - q.c2, d2 = q.c2 - pq.c2;
+      if (g2 > 0.035 || d2 < -0.03) cands.push({ k: 'c2', up: Math.max(g2, -d2) * q.cap, issue: 'CAP → Install at ' + this.pct(q.c2) + ' (' + (d2 < 0 ? '−' : '+') + Math.abs(d2 * 100).toFixed(1) + ' pts QoQ; ' + l.chName + ' benchmark ' + this.pct(b.c2) + ')', bench: this.pct(b.c2), stage: 'CAP → Install' });
+      const g1 = b.c1 - q.c1, d1 = q.c1 - pq.c1;
+      if (g1 > 0.035 || d1 < -0.03) cands.push({ k: 'c1', up: Math.max(g1, -d1) * q.sra * q.c2, issue: 'SRA → CAP at ' + this.pct(q.c1) + ' (' + (d1 < 0 ? '−' : '+') + Math.abs(d1 * 100).toFixed(1) + ' pts QoQ; ' + l.chName + ' benchmark ' + this.pct(b.c1) + ')', bench: this.pct(b.c1), stage: 'SRA → CAP' });
+      const dS = q.sraP / pq.sraP - 1;
+      if (dS < -0.08) cands.push({ k: 'vol', up: (pq.sraP - q.sraP) * q.reps * q.c3, issue: 'SRAs per rep down ' + Math.abs(dS * 100).toFixed(1) + '% QoQ (' + q.sraP.toFixed(2) + ' vs. ' + pq.sraP.toFixed(2) + ')', prev: pq.sraP.toFixed(2) });
+      const rg6 = coRet6 - l.ret[2];
+      if (rg6 > 0.07) cands.push({ k: 'ret', up: rg6 * l.reps * q.insP * 3 * 0.5, issue: '6-month recruit retention ' + Math.round(l.ret[2] * 100) + '% vs. company ' + Math.round(coRet6 * 100) + '%' });
+      const trGap = l.trReq < TGT - 5;
+      if (!cands.length && trGap) cands.push({ k: 'tr', up: 0.04 * q.ins, issue: 'Required training ' + Math.round(l.trReq) + '% complete' });
+      if (!cands.length) return;
+      cands.sort((x, y) => y.up - x.up);
+      const t = cands[0];
+      if (t.up < 4 && !trGap) return;
+      let action, diag, diagCls, pitch;
+      const where = l.ofName + ' ' + l.chName;
+      if (trGap) {
+        diag = 'Compliance gap · ' + Math.round(l.trReq) + '% required training';
+        diagCls = 'chip down';
+        action = 'Get every rep through RunXLearning, orientation and playbooks first. Re-check conversions after 30 days before prescribing skill training.';
+      } else {
+        diag = 'Training complete · skill gap';
+        diagCls = 'chip flat';
+        const big = (t.k === 'c2' && (b.c2 - q.c2) > 0.05) || (t.k === 'c1' && (b.c1 - q.c1) > 0.05);
+        const mod = { c2: 'Targeted CAP → Install module (install-day prep, cancellation saves, customer follow-through)', c1: 'Targeted SRA → CAP module (clean paperwork, site-survey readiness, permitting docs)', vol: 'Prospecting bootcamp plus daily activity tracking with the office leader', ret: 'Leader coaching on rookie onboarding, combine draft and first-30-day check-ins', tr: 'Close out remaining required modules' }[t.k];
+        action = mod + (big ? '. Gap is large: schedule in-person field training.' : '.');
+      }
+      const up$ = this.money(t.up * REV);
+      if (t.k === 'c1' || t.k === 'c2') pitch = 'If ' + where + ' gets ' + t.stage + ' to the ' + l.chName + ' benchmark (' + t.bench + '), that’s about +' + Math.round(t.up) + ' installs, or ' + up$ + ', per quarter.';
+      else if (t.k === 'vol') pitch = 'Getting SRAs per rep back to last quarter’s ' + t.prev + ' adds about +' + Math.round(t.up) + ' installs (' + up$ + ') per quarter.';
+      else if (t.k === 'ret') pitch = 'Keeping rookies at the company retention rate protects about +' + Math.round(t.up) + ' installs (' + up$ + ') per quarter.';
+      else pitch = 'Compliance comes first: trained reps convert better across every stage.';
+      const sev = trGap || t.up * REV > 1e6;
+      const rx = prescribe(l, t.k, trGap);
+      const key = l.ch + '-' + l.of;
+      const isAs = !!assigned[key];
+      const reach = Math.max(...rx.map((x) => x.n));
+      flagsAll.push({
+        rx, isAssigned: isAs, notAssigned: !isAs,
+        rxTitle: trGap ? 'Prescribed: close the compliance gap first' : 'Prescribed content · highest lift on ' + ({ c2: 'CAP → Install', c1: 'SRA → CAP', vol: 'SRAs per rep', ret: 'recruiting & retention' }[t.k]) + ', least watched here',
+        assignLabel: 'Assign ' + rx.length + ' items to ' + reach + ' reps',
+        assignedLabel: 'Assigned to ' + reach + ' reps · due in 14 days',
+        assign: () => {
+          const k2 = trGap ? 'tr' : t.k;
+          const bt = { c2: [q.c2, Math.max(b.c2, pq.c2)], c1: [q.c1, Math.max(b.c1, pq.c1)], vol: [q.sraP, pq.sraP], ret: [l.ret[2], coRet6], tr: [l.trReq / 100, TGT / 100] }[k2];
+          this.setState({ assigned: Object.assign({}, assigned, { [key]: { ch: l.ch, rg: l.rg, of: l.of, k: k2, base: bt[0], target: bt[1], items: rx.map((x) => x.name), reps: l.reps, days: 0, comp: 0, eff: 0, at: Object.keys(assigned).length } }) });
+        },
+        track: () => this.setState({ page: 'follow' }),
+        up: t.up, title: l.ofName, meta: l.rgName + ' · ' + l.chName, issue: t.issue, diag, diagCls,
+        trainNote: trGap ? '' : 'Required training ' + Math.round(l.trReq) + '%',
+        action, pitch, upMoney: up$ + ' / qtr', upInst: '+' + Math.round(t.up) + ' installs at stake',
+        stCls: sev ? 'st crit' : 'st warn', stLabel: sev ? 'At risk' : 'Watch', trGap,
+        go: () => this.setState({ page: 'overview', channel: l.ch, region: l.rg, office: l.of })
+      });
+    });
+    flagsAll.sort((x, y) => y.up - x.up);
+    const flags = flagsAll.slice(0, 8).map((f, i) => Object.assign({}, f, { rank: i + 1 }));
+    const totUp = flagsAll.reduce((s, f) => s + f.up, 0);
+    const heat = RG.map((g) => ({
+      name: g.name,
+      cells: CH.map((x) => {
+        const sub = leaves.filter((l) => l.ch === x.id && l.rg === g.id);
+        const a = this.agg(sub), hc = this.win(a, M.cur), hp = this.win(a, M.prev);
+        const v = (hc.insP / hp.insP - 1) * 100;
+        const t = Math.max(-1, Math.min(1, v / 10));
+        const bg = t >= 0 ? this.mix('#2a2d33', '#3987e5', t) : this.mix('#2a2d33', '#e66767', -t);
+        const dark = t >= 0 ? t > 0.85 : -t > 0.7;
+        const on = (ch === x.id) && (rg === g.id);
+        return {
+          text: (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.abs(v).toFixed(1) + '%', bg, fg: dark ? '#07080b' : '#eceef2',
+          ring: on ? 'inset 0 0 0 2px #f5a524' : 'none',
+          aria: x.name + ', ' + g.name + ': installs per rep ' + (v >= 0 ? 'up ' : 'down ') + Math.abs(v).toFixed(1) + ' percent',
+          go: () => this.setState({ page: 'overview', channel: x.id, region: g.id, office: 'all' })
+        };
+      })
+    }));
+    const imp = {
+      tiles: [
+        { label: 'Offices flagged', value: String(flagsAll.length), note: 'Office × channel combinations in ' + scopeShort },
+        { label: 'Training compliance gaps', value: String(flagsAll.filter((f) => f.trGap).length), note: 'Fix first: below ' + (TGT - 5) + '% required training' },
+        { label: 'Skill gaps', value: String(flagsAll.filter((f) => !f.trGap).length), note: 'Trained, but a funnel stage is slipping' },
+        { label: 'Revenue at stake', value: this.money(totUp * REV), note: '+' + this.int(totUp) + ' installs per quarter if gaps close' }
+      ],
+      cols: CH.map((x) => ({ name: x.name })), heat, flags,
+      more: flagsAll.length > 8 ? 'Showing top 8 of ' + flagsAll.length + '.' : ''
+    };
+
+    // ---------- follow-through on assigned training
+    const KIND = { c2: { label: 'CAP → Install', pct: true }, c1: { label: 'SRA → CAP', pct: true }, vol: { label: 'SRAs per rep / mo', pct: false }, ret: { label: '6-mo recruit retention', pct: true }, tr: { label: 'Required training complete', pct: true } };
+    const fmtK = (k, v) => KIND[k].pct ? (v * 100).toFixed(1) + '%' : v.toFixed(2);
+    const fmtD = (k, d) => (d >= 0 ? '+' : '−') + (KIND[k].pct ? Math.abs(d * 100).toFixed(1) + ' pts' : Math.abs(d).toFixed(2));
+    const MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const dateOf = (off) => { const dt = new Date(2026, 9, 28 + off); return MN[dt.getMonth()] + ' ' + dt.getDate(); };
+    const noise = (w, i) => { const x = Math.sin(w * 12.9898 + i * 78.233) * 43758.5453; return x - Math.floor(x) - 0.5; };
+    const smooth = (x) => x * x * (3 - 2 * x);
+    const SEEDS = [
+      { ch: 'street', rg: 'sw', of: 'phoenix', k: 'vol', days: 92, comp: 0.94, base: 2.62, target: 3.0, eff: 1.05, items: ['The First 10 Seconds', 'Handling “Not Interested”', 'Reading a Utility Bill'] },
+      { ch: 'retail', rg: 'tx', of: 'dallas', k: 'c2', days: 75, comp: 0.88, base: 0.812, target: 0.861, eff: 0.7, items: ['Saving a Cancel', 'The Pre-Install Call', 'Setting Timeline Expectations'] },
+      { ch: 'chain', rg: 'se', of: 'tampa', k: 'c1', days: 64, comp: 0.52, base: 0.742, target: 0.79, eff: 0.15, items: ['Clean SRA Checklist', 'Common CAP Rejections', 'Photo Requirements'] },
+      { ch: 'block', rg: 'ca', of: 'sd', k: 'ret', days: 41, comp: 0.81, base: 0.58, target: 0.7, eff: 0.5, items: ['Onboarding Rookies', 'Running a Combine', 'Telling Your Story'] },
+      { ch: 'air', rg: 'ne', of: 'boston', k: 'c2', days: 33, comp: 0.9, base: 0.8, target: 0.85, eff: 0.05, items: ['Saving a Cancel', 'Prepping the Homeowner', 'What Happens After the SRA'] },
+      { ch: 'retail', rg: 'sw', of: 'vegas', k: 'tr', days: 18, comp: 0.64, base: 0.78, target: 0.9, eff: 0.55, items: ['Code of Conduct & Ethics', 'Licensing & State Rules', 'Product Basics'] }
+    ];
+    const sess = Object.keys(assigned).map((key) => assigned[key]).sort((x, y) => y.at - x.at);
+    const volOf = (l, k) => { const q = this.win(l.m, Q); return { c2: q.cap, c1: q.sra * q.c2, vol: q.reps * q.c3, ret: l.reps * q.insP * 1.5, tr: 0 }[k]; };
+    const fuAll = sess.concat(SEEDS).filter(inScope).map((a, i) => {
+      const l = leaves.find((x) => x.ch === a.ch && x.of === a.of);
+      const reps = a.reps || l.reps;
+      const gap = a.target - a.base;
+      const val = (d) => d < 0 ? a.base + gap * 0.45 * (-d / 84) + gap * 0.12 * noise(d, i) : a.base + gap * a.eff * smooth(Math.min(1, d / 60)) + (d > 0 ? gap * 0.08 * noise(d, i) : 0);
+      const pts = [];
+      for (let w = -12; w * 7 <= a.days; w++) pts.push([w, val(w * 7)]);
+      if (a.days % 7) pts.push([a.days / 7, val(a.days)]);
+      const now = val(a.days), g = gap ? (now - a.base) / gap : 0;
+      const ys = pts.map((x) => x[1]).concat([a.base, a.target]);
+      let lo = Math.min(...ys), hi = Math.max(...ys);
+      const pad = (hi - lo) * 0.18 || 0.01; lo -= pad; hi += pad;
+      const Yp = (v) => (1 - (v - lo) / (hi - lo)) * 100;
+      const line = 'M' + pts.map(([w, v]) => ((w + 12) * 10).toFixed(1) + ' ' + (Yp(v) * 0.7).toFixed(1)).join(' L');
+      let st, action;
+      if (a.days < 30 && a.comp >= 0.6) { st = { cls: 'st info', label: a.days ? 'In progress' : 'Just assigned' }; action = a.days ? 'Too early to judge. First checkpoint on ' + dateOf(30 - a.days) + '.' : 'Baseline captured today. Reps get a reminder at day 7; first checkpoint on ' + dateOf(30) + '.'; }
+      else if (a.comp < 0.6) { st = { cls: a.days ? 'st warn' : 'st info', label: a.days ? 'Completion lagging' : 'Just assigned' }; action = a.days ? Math.round((1 - a.comp) * reps) + ' reps haven’t finished. Ask the office leader to block time in the next team meeting before judging results.' : 'Baseline captured today. Reps get a reminder at day 7; first checkpoint on ' + dateOf(30) + '.'; }
+      else if (g >= 0.8) { st = { cls: 'st good', label: 'Recovered' }; action = 'Back at target. Close the assignment and reuse this playbook for similar offices.'; }
+      else if (g >= 0.3) { st = { cls: 'st good', label: 'Improving' }; action = Math.round(g * 100) + '% of the gap closed. Keep the leader check-ins going through day 90.'; }
+      else { st = { cls: 'st crit', label: 'No lift · escalate' }; action = 'Training is complete but the metric hasn’t moved. Schedule in-person field training and review whether this content fits the problem.'; }
+      const gained = Math.max(0, now - a.base) * volOf(l, a.k);
+      return {
+        title: l.ofName, meta: l.rgName + ' · ' + l.chName, metric: KIND[a.k].label,
+        targetText: 'Baseline ' + fmtK(a.k, a.base) + ' → target ' + fmtK(a.k, a.target),
+        items: a.items.map((n) => ({ name: n })),
+        compW: Math.round(a.comp * 100) + '%', compText: Math.round(a.comp * reps) + ' of ' + reps + ' reps finished · ' + Math.round(a.comp * 100) + '%',
+        when: 'Assigned ' + dateOf(-a.days) + (a.days ? ' · day ' + a.days : ' · today'),
+        nowText: fmtK(a.k, now), nowD: a.days ? this.chip((now - a.base) * (KIND[a.k].pct ? 100 : 1 / a.base * 100), KIND[a.k].pct ? ' pts' : '%') : { cls: 'chip flat', text: 'baseline' },
+        line, baseTop: Yp(a.base).toFixed(1) + '%', tgtTop: Yp(a.target).toFixed(1) + '%',
+        ticks: [['−12 wk', -12], ['Assigned', 0], ['30d', 30 / 7], ['60d', 60 / 7], ['90d', 90 / 7]].map(([label, w]) => ({ label, left: ((w + 12) / 25 * 100).toFixed(1) + '%' })),
+        cps: [30, 60, 90].map((cp) => {
+          const done = a.days >= cp, v = done ? val(cp) : 0;
+          return {
+            label: cp + ' days', done, pending: !done,
+            val: done ? fmtK(a.k, v) : '', d: done ? { cls: 'chip ' + (v >= a.base ? 'up' : 'down'), text: fmtD(a.k, v - a.base) } : { cls: '', text: '' },
+            closed: done ? Math.round((v - a.base) / gap * 100) + '% of gap closed' : '',
+            due: done ? '' : 'Due ' + dateOf(cp - a.days) + ' · in ' + (cp - a.days) + ' days'
+          };
+        }),
+        stCls: st.cls, stLabel: st.label, action, days: a.days, comp: a.comp, g, gained,
+        go: () => this.setState({ page: 'overview', channel: a.ch, region: a.rg, office: a.of })
+      };
+    });
+    const evald = fuAll.filter((r) => r.days >= 30);
+    const active = fuAll.filter((r) => r.days < 90);
+    const grpG = (arr) => arr.length ? arr.reduce((s, r) => s + r.g, 0) / arr.length : null;
+    const gHi = grpG(evald.filter((r) => r.comp >= 0.8)), gLo = grpG(evald.filter((r) => r.comp < 0.8));
+    const bar = (label, gv) => ({ label, val: gv == null ? '—' : Math.round(gv * 100) + '%', w: gv == null ? '0%' : Math.max(2, Math.min(100, gv * 100)).toFixed(0) + '%' });
+    const gainedTot = fuAll.reduce((s, r) => s + r.gained, 0);
+    const fu = {
+      rows: fuAll, empty: fuAll.length === 0,
+      tiles: [
+        { label: 'Active assignments', value: String(active.length), note: 'Within their 90-day window in ' + scopeShort },
+        { label: 'Avg. completion', value: active.length ? Math.round(active.reduce((s, r) => s + r.comp, 0) / active.length * 100) + '%' : '—', note: 'Share of assigned reps who finished every item' },
+        { label: 'Recovering', value: evald.filter((r) => r.g >= 0.3).length + ' of ' + evald.length, note: 'Past day 30 and at least 30% of the gap closed' },
+        { label: 'Revenue regained', value: this.money(gainedTot * REV) + ' / qtr', note: '+' + this.int(gainedTot) + ' installs per quarter vs. baselines' }
+      ],
+      evidence: [bar('Finished ≥80% of assigned training', gHi), bar('Finished under 80%', gLo)],
+      evidenceNote: gHi != null && gLo != null ? 'Offices that finished their assigned training closed ' + Math.round(gHi * 100) + '% of their gap on average, vs. ' + Math.round(gLo * 100) + '% for offices that didn’t. Completion is the first lever; if it’s high and nothing moved, escalate to field training.' : 'Not enough assignments past day 30 in this scope to compare yet.',
+      goImprove: () => this.setState({ page: 'improve' })
+    };
+
+    return {
+      navs: pages.map((x, i) => ({
+        label: x.label, num: '0' + (i + 1), cls: 'nav' + (S.page === x.id ? ' on' : ''), current: S.page === x.id ? 'page' : 'false',
+        go: () => this.setState({ page: x.id }),
+        hasBadge: (x.id === 'improve' && flagsAll.length > 0) || (x.id === 'follow' && active.length > 0),
+        badge: String(x.id === 'follow' ? active.length : flagsAll.length)
+      })),
+      fu, isFollow: S.page === 'follow',
+      modes: ['MoM', 'QoQ', 'YoY'].map((k) => ({ label: k, on: S.mode === k, cls: S.mode === k ? 'on' : '', go: () => this.setState({ mode: k, hov: null }) })),
+      chanPills: [{ id: 'all', name: 'All channels' }].concat(CH).map((x) => ({ name: x.name, on: ch === x.id, cls: 'pill' + (ch === x.id ? ' on' : ''), go: () => this.setState({ channel: x.id }) })),
+      regPills: [{ id: 'all', name: 'All regions' }].concat(RG).map((x) => ({ name: x.name, on: rg === x.id, cls: 'pill' + (rg === x.id ? ' on' : ''), go: () => this.setState({ region: x.id, office: 'all' }) })),
+      offPills: rgObj ? [{ id: 'all', name: 'All offices' }].concat(rgObj.offices).map((x) => ({ name: x.name, on: of === x.id, cls: 'pill' + (of === x.id ? ' on' : ''), go: () => this.setState({ office: x.id }) })) : [],
+      showOffices: !!rgObj, isScoped: ch !== 'all' || rg !== 'all',
+      reset: () => this.setState({ channel: 'all', region: 'all', office: 'all' }),
+      pageKicker: pg.kicker, pageTitle: pg.title, scopeName, scopeShort, periodLabel: M.lab, cmpShort: M.short,
+      isOverview: S.page === 'overview', isFunnel: S.page === 'funnel', isTraining: S.page === 'training', isImprove: S.page === 'improve',
+      kpis, rev, revRate: this.money(REV), trend, funnel,
+      hero: {
+        value: c.insP.toFixed(2), d: this.chip((c.insP / p.insP - 1) * 100, '%'), co: cc.insP.toFixed(2),
+        rev: this.money(c.ins * REV), risk: this.money(totUp * REV) + ' / qtr',
+        cta: 'See where to focus · ' + flagsAll.length + ' flagged', go: () => this.setState({ page: 'improve' })
+      },
+      bd: { title: bdTitle, sub: 'Current period, change ' + M.short + '. Select a name to drill in.', dimLabel: dim, dimLower: dim.toLowerCase(), rows },
+      convs, ret, speed, rookie,
+      req, opt, tvu, tvuNote, eff, compl, tgt: TGT, tgtPos: TGT + '%', trShare: Math.round(share * 100) + '%', ct,
+      imp
+    };
+  }
+}
+
+tplRoot = document.getElementById('dc-template').content;
+mount = document.getElementById('app');
+comp = new Component({});
+draw();
+</script>
+</body>
+</html>
